@@ -5,8 +5,11 @@ module.exports = {
     './public/*.html',
     './app/helpers/**/*.rb',
     './app/javascript/**/*.js',
+    './app/components/**/*.rb',
+    './app/components/**/*.html.erb',
     './app/views/**/*.{erb,haml,html,slim}'
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
