@@ -18,23 +18,20 @@
 #  unconfirmed_email      :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#
-# @class [User] -> Devise
-#
 class User < ApplicationRecord
   # @extends ..................................................................
   devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, password_length: 6..22
 
   # @includes .................................................................
   # @security (i.e. attr_accessible) ..........................................
   # @relationships ............................................................
   # @validations ..............................................................
-  validates :first_name, :last_name, :email, presence: true
-  validates :email, uniqueness: true
-  validates :password, length: { in: 6..22 }
+  validates :first_name, :last_name, presence: true
 
   # @callbacks ................................................................
+  after_validation :confirm_user
+
   # @scopes ...................................................................
   # @additional_config ........................................................
   # @class_methods ............................................................
@@ -49,5 +46,12 @@ class User < ApplicationRecord
   end
 
   # @protected_instance_methods ...............................................
+
+  protected
+
+  def confirm_user
+    self.confirmed_at = Date.current
+  end
+
   # @private_instance_methods .................................................
 end

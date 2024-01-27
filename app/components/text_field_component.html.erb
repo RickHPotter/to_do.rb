@@ -1,0 +1,14 @@
+<% if wrapper %>
+  <div class="relative h-11 w-full min-w-[200px]">
+<% end %>
+
+<%= form.text_field field, id: options[:id], placeholder: ' ', type: options[:type],
+                    step: options[:step], autocomplete: options[:autocomplete], autofocus: options[:autofocus],
+                    data: options[:data],
+                    class: input_class %>
+
+<%= form.label field, options[:label], class: label_class, for: options[:id] %>
+
+<% if wrapper %>
+  </div>
+<% end %>

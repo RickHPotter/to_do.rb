@@ -17,10 +17,40 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
-require "test_helper"
+require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test 'should save user' do
+    assert users(:john_doe).save, 'Saved the user'
+  end
+
+  test 'should not save user without first name' do
+    user = users(:john_doe).dup
+    user.first_name = nil
+    assert_not user.save, 'Saved the user without a first name'
+  end
+
+  test 'should not save user without last name' do
+    user = users(:john_doe).dup
+    user.last_name = nil
+    assert_not user.save, 'Saved the user without a last name'
+  end
+
+  test '#full_name should return a full name based on first_name and last_name' do
+    assert_equal 'Jane Doe', users(:jane_doe).full_name
+  end
+
+  test 'should not save with password less than 6 characters' do
+    user = users(:john_doe).dup
+    user.password = '12345'
+    assert_not user.save, 'Saved the user with a password less than 6 characters'
+  end
+
+  test 'should not save with password_confirmation different from password' do
+    user = users(:john_doe).dup
+    user.password_confirmation = 'whatever'
+    assert_not user.save, 'Saved the user with a password_confirmation different from password'
+  end
+
+  # TODO: Add tests for associations
 end
