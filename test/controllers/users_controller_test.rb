@@ -23,4 +23,20 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_match(/sign in/i, response.body)
   end
+
+  test 'should create valid user' do
+    password = Faker::Internet.password
+    user = {
+      first_name: Faker::Name.first_name,
+      last_name: Faker::Name.last_name,
+      email: Faker::Internet.email,
+      password:, password_confirmation: password
+    }
+
+    post user_registration_path, params: { user: }
+
+    assert_response :redirect
+    assert_match 'You have signed up successfully', flash[:notice]
+    assert_redirected_to root_path
+  end
 end

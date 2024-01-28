@@ -86,14 +86,26 @@ GEM
     base64 (0.2.0)
     bcrypt (3.1.20)
     benchmark (0.3.0)
+    better_html (2.0.2)
+      actionview (>= 6.0)
+      activesupport (>= 6.0)
+      ast (~> 2.0)
+      erubi (~> 1.4)
+      parser (>= 2.4)
+      smart_properties
     bigdecimal (3.1.6)
     bindex (0.8.1)
     bootsnap (1.17.1)
       msgpack (~> 1.2)
+    brakeman (6.1.1)
+      racc
     builder (3.2.4)
     bullet (7.1.6)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
+    bundler-audit (0.9.1)
+      bundler (>= 1.2.0, < 3)
+      thor (~> 1.0)
     capybara (3.39.2)
       addressable
       matrix
@@ -121,6 +133,13 @@ GEM
     drb (2.2.0)
       ruby2_keywords
     e2mmap (0.1.0)
+    erb_lint (0.5.0)
+      activesupport
+      better_html (>= 2.0.1)
+      parser (>= 2.7.1.4)
+      rainbow
+      rubocop
+      smart_properties
     erubi (1.12.0)
     faker (3.2.3)
       i18n (>= 1.8.11, < 2)
@@ -292,6 +311,7 @@ GEM
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.4)
+    smart_properties (1.17.0)
     solargraph (0.50.0)
       backport (~> 1.2)
       benchmark
@@ -374,10 +394,13 @@ DEPENDENCIES
   annotate
   awesome_print
   bootsnap
+  brakeman
   bullet
+  bundler-audit
   capybara
   debug
   devise
+  erb_lint
   faker
   hotwire-livereload
   importmap-rails

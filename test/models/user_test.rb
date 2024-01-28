@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -52,5 +54,16 @@ class UserTest < ActiveSupport::TestCase
     assert_not user.save, 'Saved the user with a password_confirmation different from password'
   end
 
-  # TODO: Add tests for associations
+  test 'should respond to has_many :team_users and :teams' do
+    assert_respond_to users(:john_doe), :team_users
+    assert_respond_to users(:john_doe), :teams
+  end
+
+  test 'should have a default team' do
+    user = users(:lovelace)
+    user.save
+
+    assert_equal 1, user.teams.count
+    assert_equal 'Default', user.teams.first.team_name
+  end
 end

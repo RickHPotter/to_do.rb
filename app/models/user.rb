@@ -26,11 +26,15 @@ class User < ApplicationRecord
   # @includes .................................................................
   # @security (i.e. attr_accessible) ..........................................
   # @relationships ............................................................
+  has_many :team_users, dependent: :destroy
+  has_many :teams, through: :team_users
+
   # @validations ..............................................................
   validates :first_name, :last_name, presence: true
 
   # @callbacks ................................................................
   after_validation :confirm_user
+  after_validation :create_default_team
 
   # @scopes ...................................................................
   # @additional_config ........................................................
@@ -51,6 +55,16 @@ class User < ApplicationRecord
 
   def confirm_user
     self.confirmed_at = Date.current
+  end
+
+  # Creates built-in `categories` for given user.
+  #
+  # @return [void]
+  #
+  def create_default_team
+    team_users.push TeamUser.new(
+      team: Team.new(team_name: 'Default', creator: self, policy: :public)
+    )
   end
 
   # @private_instance_methods .................................................
