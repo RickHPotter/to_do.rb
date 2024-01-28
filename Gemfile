@@ -55,6 +55,8 @@ gem 'view_component'
 # Authentication
 gem 'devise'
 
+gem 'dotenv-rails'
+
 group :development, :test do
   gem 'bullet'
   gem 'debug', platforms: %i[mri windows]
