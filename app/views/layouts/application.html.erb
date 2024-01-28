@@ -1,19 +1,33 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TodoListRb</title>
+    <title>TꙨdꙨ</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag 'tailwind', 'inter-font', "data-turbo-track": 'reload' %>
+    <%= stylesheet_link_tag 'application', "data-turbo-track": 'reload' %>
     <%= javascript_importmap_tags %>
+    <%= hotwire_livereload_tags if Rails.env.development? %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
+  <body class=''>
+    <main class="h-screen bg-zinc-300 dark:bg-gray-900 text-black dark:text-white antialiased">
+      <div class="flex justify-between">
+        <div class="p-2">
+          <%= render 'shared/dark_mode' %>
+        </div>
+        <div>
+          <!-- FIXME: this should be a turbo view_component -->
+          <p class="notice"><%= notice %></p>
+          <p class="alert"><%= alert %></p>
+        </div>
+      </div>
+
+      <section class="container mx-auto mt-28 px-5 flex">
+        <%= yield %>
+      </section>
     </main>
   </body>
 </html>
