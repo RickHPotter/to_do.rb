@@ -64,7 +64,8 @@ class User < ApplicationRecord
   #
   def create_default_team
     team_users.push TeamUser.new(
-      team: Team.new(team_name: 'Default', creator: self, policy: :public)
+      team: Team.new(team_name: 'Default', creator: self, policy: :public),
+      admin: true
     )
   end
 

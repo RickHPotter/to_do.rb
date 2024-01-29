@@ -19,16 +19,12 @@ class TeamUserTest < ActiveSupport::TestCase
     assert team_users(:one).save, 'Saved the association Team User'
   end
 
-  test 'should not save team_user without team' do
-    team_user = team_users(:one).dup
-    team_user.team_id = nil
-    assert_not team_user.save, 'Saved the team_user without a team'
-  end
-
-  test 'should not save team_user without user' do
-    team_user = team_users(:one).dup
-    team_user.user_id = nil
-    assert_not team_user.save, 'Saved the team_user without a user'
+  %i[team_id user_id admin].each do |attribute|
+    test "should not save team_user without #{attribute}" do
+      team_user = team_users(:one)
+      team_user[attribute] = nil
+      assert_not team_user.save, "Saved the team_user without a/an #{attribute}"
+    end
   end
 
   test 'should respond to belongs_to :team and :user' do

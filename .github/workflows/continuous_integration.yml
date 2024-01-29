@@ -1,9 +1,10 @@
 name: "Ruby on Rails CI"
 on:
   push:
-    branches-ignore: [main]
+    branches: ["**"]
 jobs:
   test:
+    # if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -11,10 +12,6 @@ jobs:
         ports:
           - "5432:5432"
         env:
-          # I might create secrets in the GitHub Actions secrets tab
-          # POSTGRES_DB: ${{secrets.POSTGRES_DB}}
-          # POSTGRES_USER: ${{secrets.POSTGRES_USER}}
-          # POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
           POSTGRES_DB: rails_test
           POSTGRES_USER: rails
           POSTGRES_PASSWORD: password

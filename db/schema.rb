@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_29_132054) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_29_145548) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -34,6 +34,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_29_132054) do
     t.index ["task_list_id"], name: "index_category_task_lists_on_task_list_id"
   end
 
+  create_table "task_list_users", force: :cascade do |t|
+    t.bigint "task_list_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["task_list_id", "user_id"], name: "index_task_list_users_on_task_list_id_and_user_id", unique: true
+    t.index ["task_list_id"], name: "index_task_list_users_on_task_list_id"
+    t.index ["user_id"], name: "index_task_list_users_on_user_id"
+  end
+
   create_table "task_lists", force: :cascade do |t|
     t.string "task_list_name", null: false
     t.text "description"
@@ -53,10 +63,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_29_132054) do
   create_table "tasks", force: :cascade do |t|
     t.string "task_name", null: false
     t.text "description"
-    t.integer "order"
-    t.integer "progress"
-    t.integer "priority"
-    t.date "due_date"
+    t.integer "order", default: 0, null: false
+    t.integer "progress", default: 0, null: false
+    t.integer "priority", default: 0, null: false
+    t.date "due_date", default: "2024-01-29", null: false
     t.bigint "task_list_id", null: false
     t.bigint "assignee_id"
     t.datetime "created_at", null: false
@@ -110,6 +120,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_29_132054) do
   add_foreign_key "categories", "teams"
   add_foreign_key "category_task_lists", "categories"
   add_foreign_key "category_task_lists", "task_lists"
+  add_foreign_key "task_list_users", "task_lists"
+  add_foreign_key "task_list_users", "users"
   add_foreign_key "task_lists", "teams"
   add_foreign_key "task_lists", "users", column: "creator_id"
   add_foreign_key "tasks", "task_lists"

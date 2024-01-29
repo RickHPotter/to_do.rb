@@ -6,10 +6,10 @@ class CreateTasks < ActiveRecord::Migration[7.1]
     create_table :tasks do |t|
       t.string :task_name, null: false
       t.text :description
-      t.integer :order
-      t.integer :progress
-      t.integer :priority
-      t.date :due_date
+      t.integer :order, null: false, default: 0
+      t.integer :progress, null: false, default: 0
+      t.integer :priority, null: false, default: 0
+      t.date :due_date, null: false, default: Date.today
 
       t.references :task_list, null: false, foreign_key: true
       t.references :assignee, foreign_key: { to_table: :users }

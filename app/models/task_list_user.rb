@@ -2,21 +2,21 @@
 
 # == Schema Information
 #
-# Table name: category_task_lists
+# Table name: task_list_users
 #
 #  id           :bigint           not null, primary key
-#  category_id  :bigint           not null
 #  task_list_id :bigint           not null
+#  user_id      :bigint           not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
-class CategoryTaskList < ApplicationRecord
+class TaskListUser < ApplicationRecord
   # @extends ..................................................................
   # @includes .................................................................
   # @security (i.e. attr_accessible) ..........................................
   # @relationships ............................................................
-  belongs_to :category
   belongs_to :task_list
+  belongs_to :user
 
   # @validations ..............................................................
   # @callbacks ................................................................

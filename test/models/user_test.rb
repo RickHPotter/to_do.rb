@@ -26,16 +26,12 @@ class UserTest < ActiveSupport::TestCase
     assert users(:john_doe).save, 'Saved the user'
   end
 
-  test 'should not save user without first name' do
-    user = users(:john_doe).dup
-    user.first_name = nil
-    assert_not user.save, 'Saved the user without a first name'
-  end
-
-  test 'should not save user without last name' do
-    user = users(:john_doe).dup
-    user.last_name = nil
-    assert_not user.save, 'Saved the user without a last name'
+  %i[first_name last_name].each do |attribute|
+    test "should not save user without #{attribute}" do
+      user = users(:john_doe)
+      user[attribute] = nil
+      assert_not user.save, "Saved the user without a/an #{attribute}"
+    end
   end
 
   test '#full_name should return a full name based on first_name and last_name' do

@@ -19,16 +19,12 @@ class TeamTest < ActiveSupport::TestCase
     assert teams(:sept).save, 'Saved the team'
   end
 
-  test 'should not save team without a team_name' do
-    team = teams(:sept).dup
-    team.team_name = nil
-    assert_not team.save, 'Saved the team without a team_name'
-  end
-
-  test 'should not save team without a creator' do
-    team = teams(:mizu).dup
-    team.creator = nil
-    assert_not team.save, 'Saved the team without a creator'
+  %i[team_name creator_id].each do |attribute|
+    test "should not save team without #{attribute}" do
+      team = teams(:sept)
+      team[attribute] = nil
+      assert_not team.save, "Saved the team without a/an #{attribute}"
+    end
   end
 
   test 'should not save team with a repeating team_name in the scope of the creator' do

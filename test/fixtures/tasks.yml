@@ -5,17 +5,17 @@
 #  id           :bigint           not null, primary key
 #  task_name    :string           not null
 #  description  :text
-#  order        :integer
-#  progress     :integer
-#  priority     :integer
-#  due_date     :date
+#  order        :integer          default(0), not null
+#  progress     :integer          default(0), not null
+#  priority     :integer          default(0), not null
+#  due_date     :date             default(Mon, 29 Jan 2024), not null
 #  task_list_id :bigint           not null
 #  assignee_id  :bigint
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
 
-car_washing:
+wash_car:
   task_name: Wash Car
   description: Use x and y to clean, z to polish and w to dry
   task_list: today
@@ -23,7 +23,7 @@ car_washing:
   progress: 0
   priority: 2
   assignee: john_doe
-  due_date: 2024-01-29
+  due_date: <%= Date.current %>
 
 make_lunch:
   task_name: Make lunch
@@ -33,7 +33,7 @@ make_lunch:
   progress: 0
   priority: 1
   assignee: john_doe
-  due_date: 2024-01-29
+  due_date: <%= Date.current %>
 
 work_out:
   task_name: Work out
@@ -43,4 +43,4 @@ work_out:
   progress: 0
   priority: 3
   assignee: jane_doe
-  due_date: 2024-01-29
+  due_date: <%= Date.current %>

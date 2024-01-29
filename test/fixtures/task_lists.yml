@@ -23,4 +23,4 @@ today:
   policy: 1
   progress: 1
   priority: 1
-  due_date: 2024-01-29
+  due_date: <%= Date.current %>
