@@ -44,3 +44,5 @@
 /doc
 .yardoc
 .env
+
+/config/credentials/production.key
