@@ -8,7 +8,7 @@
 #  team_name   :string           not null
 #  description :text
 #  creator_id  :bigint           not null
-#  policy      :integer          default(0), not null
+#  policy      :integer          default("public"), not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #

@@ -1,16 +1,18 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  username: postgres
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+  database: todo_list_rb_<%= Rails.env %>
+  host: localhost
+  username: <%= ENV['LOCAL_POSTGRES_USER'] %>
+  password: <%= ENV['LOCAL_POSTGRES_PASSWORD'] %>
 
 development:
   <<: *default
-  database: todo_list_rb_development
 
 test:
   <<: *default
-  database: todo_list_rb_test
 
 production:
   <<: *default

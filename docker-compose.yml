@@ -12,11 +12,17 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
       - "5432:5432"
+  app_migration:
+    build: .
+    command: "rails db:migrate"
+    environment:
+      - RAILS_ENV=production
+    depends_on:
+      - db
   app:
     build: .
-    command: "rails db:migrate && rails server -p 3000 -b '0.0.0.0'"
     environment:
-      - RAILS_ENV=${RAILS_ENV}
+      - RAILS_ENV=production
       - POSTGRES_HOST=${POSTGRES_HOST}
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}

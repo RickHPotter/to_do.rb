@@ -5,8 +5,8 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
-#  first_name             :string
-#  last_name              :string
+#  first_name             :string           not null
+#  last_name              :string           not null
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  reset_password_token   :string
@@ -18,6 +18,7 @@
 #  unconfirmed_email      :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#
 class User < ApplicationRecord
   # @extends ..................................................................
   devise :database_authenticatable, :registerable, :confirmable,

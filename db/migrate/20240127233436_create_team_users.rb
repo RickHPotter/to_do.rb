@@ -4,9 +4,10 @@
 class CreateTeamUsers < ActiveRecord::Migration[7.1]
   def change
     create_table :team_users do |t|
+      t.boolean :admin, null: false, default: false
+
       t.references :team, null: false, foreign_key: true
       t.references :user, null: false, foreign_key: true
-      t.boolean :admin, null: false, default: false
 
       t.timestamps
     end

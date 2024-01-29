@@ -7,8 +7,10 @@
 #  id         :bigint           not null, primary key
 #  team_id    :bigint           not null
 #  user_id    :bigint           not null
+#  admin      :boolean          default(FALSE), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#
 
 require 'test_helper'
 
