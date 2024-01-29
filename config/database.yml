@@ -14,10 +14,11 @@ test:
 
 production:
   <<: *default
-  host: <%= ENV["DOCKER_POSTGRES_HOST"] %>
-  database: <%= ENV["DOCKER_POSTGRES_DATABASE"] %>
-  username: <%= ENV["DOCKER_POSTGRES_USERNAME"] %>
-  password: <%= ENV["DOCKER_POSTGRES_PASSWORD"] %>
+  host: <%= ENV['POSTGRES_HOST'] %>
+  database: <%= ENV['POSTGRES_DB'] %>
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  sslmode: require
   connect_timeout: 2
   checkout_timeout: 5
   variables:
