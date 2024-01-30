@@ -30,4 +30,11 @@ module MinitestHelper
     assert_not helper.valid?, "Validated the #{singular} with unique combination #{attributes.join(', ')}"
     assert helper.errors.messages.keys.uniq.intersect?(attributes)
   end
+
+  def assert_redirect_to_sign_in
+    assert_response :redirect
+    assert_redirected_to new_user_session_path
+    follow_redirect!
+    assert_match(/sign in/i, response.body)
+  end
 end
