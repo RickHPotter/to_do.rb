@@ -23,13 +23,29 @@ class TaskList < ApplicationRecord
   # @relationships ............................................................
   belongs_to :team
   belongs_to :creator, class_name: :User, foreign_key: :creator_id
+  has_many :tasks
 
   # @validations ..............................................................
+  validates :task_list_name, :policy, :progress, :priority, :due_date, presence: true
+  validates :task_list_name, uniqueness: { scope: :creator }
+  validate :check_if_creator_is_in_team
+
   # @callbacks ................................................................
   # @scopes ...................................................................
   # @additional_config ........................................................
   # @class_methods ............................................................
   # @public_instance_methods ..................................................
   # @protected_instance_methods ...............................................
+
+  protected
+
+  def check_if_creator_is_in_team
+    return if errors.any?
+    return if team.members.include?(creator)
+
+    errors.add(:creator, 'is not in the team')
+    false
+  end
+
   # @private_instance_methods .................................................
 end

@@ -16,15 +16,12 @@ require 'test_helper'
 
 class TeamTest < ActiveSupport::TestCase
   test 'should save team' do
-    assert teams(:sept).save, 'Saved the team'
+    assert teams(:sept).save, 'Failed to save the team'
   end
 
-  %i[team_name creator_id].each do |attribute|
-    test "should not save team without #{attribute}" do
-      team = teams(:sept)
-      team[attribute] = nil
-      assert_not team.save, "Saved the team without a/an #{attribute}"
-    end
+  test 'should not save team without required attributes' do
+    attributes = %i[team_name creator_id]
+    assert_presence_of_required_attribute(teams(:sept), attributes)
   end
 
   test 'should not save team with a repeating team_name in the scope of the creator' do

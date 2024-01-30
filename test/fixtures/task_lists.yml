@@ -24,3 +24,13 @@ today:
   progress: 1
   priority: 1
   due_date: <%= Date.current %>
+
+never:
+  creator: a
+  task_list_name: Never
+  description: Everything that never should happen
+  team: mizu
+  policy: 0
+  progress: 1
+  priority: 1
+  due_date: <%= Date.tomorrow %>

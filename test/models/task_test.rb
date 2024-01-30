@@ -20,24 +20,17 @@ require 'test_helper'
 
 class TaskTest < ActiveSupport::TestCase
   test 'should save task' do
-    assert tasks(:wash_car).save, 'Saved the task'
+    assert tasks(:wash_car).save, 'Failed to save the task'
   end
 
-  %i[task_name order progress priority due_date task_list_id].each do |attribute|
-    test "should not save task without #{attribute}" do
-      task = tasks(:wash_car)
-      task[attribute] = nil
-      assert_not task.save, "Saved the task without a/an #{attribute}"
-    end
+  test 'should not save task without required attributes' do
+    attributes = %i[task_name order progress priority due_date task_list_id]
+    assert_presence_of_required_attribute(tasks(:wash_car), attributes)
   end
 
   test 'should not save task with existing unique combination %i[task_name task_list assignee]' do
-    task1 = tasks(:wash_car)
-    task2 = tasks(:work_out).dup
-    task2.assign_attributes(task1.attributes.slice('task_name', 'task_list_id', 'assignee_id'))
-
-    assert task1.save
-    assert_not task2.save, 'Saved the task with existing unique combination'
+    attributes = %i[task_name task_list_id assignee_id]
+    assert_not_recurring_combination(tasks(:wash_car), tasks(:work_out), attributes)
   end
 
   test 'should not save task with assignee that does not belong to task_list' do

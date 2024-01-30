@@ -15,15 +15,12 @@ require 'test_helper'
 
 class CategoryTest < ActiveSupport::TestCase
   test 'should save category' do
-    assert categories(:chore).save, 'Saved the category'
+    assert categories(:chore).save, 'Failed to save the category'
   end
 
-  %i[category_name team_id].each do |attribute|
-    test "should not save category without #{attribute}" do
-      category = categories(:chore)
-      category[attribute] = nil
-      assert_not category.save, "Saved the category without a/an #{attribute}"
-    end
+  test 'should not save category without required attributes' do
+    attributes = %i[category_name team_id]
+    assert_presence_of_required_attribute(categories(:chore), attributes)
   end
 
   test 'should not save category with duplicate name in the same team' do

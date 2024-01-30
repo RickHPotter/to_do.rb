@@ -23,15 +23,12 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   test 'should save user' do
-    assert users(:john_doe).save, 'Saved the user'
+    assert users(:john_doe).save, 'Failed to save the user'
   end
 
-  %i[first_name last_name].each do |attribute|
-    test "should not save user without #{attribute}" do
-      user = users(:john_doe)
-      user[attribute] = nil
-      assert_not user.save, "Saved the user without a/an #{attribute}"
-    end
+  test 'should not save user without required attributes' do
+    attributes = %i[first_name last_name]
+    assert_presence_of_required_attribute(users(:john_doe), attributes)
   end
 
   test '#full_name should return a full name based on first_name and last_name' do
