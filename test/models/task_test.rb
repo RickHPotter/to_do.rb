@@ -33,8 +33,17 @@ class TaskTest < ActiveSupport::TestCase
     assert_not_recurring_combination(tasks(:wash_car), tasks(:work_out), attributes)
   end
 
-  test 'should not save task with assignee that does not belong to task_list' do
-    # TODO: implement after testing TaskListUser
-    skip
+  test 'should not save task with assignee that does not belong to the task_list' do
+    task = tasks(:wash_car)
+    assignee = User.create(
+      first_name: 'Lala', last_name: 'Souza', email: Faker::Internet.email, password: '123123'
+    )
+
+    assert_not task.update(assignee:), 'Saved the task with an assignee that does not belong to the task_list'
+  end
+
+  test 'should respond to belongs_to :task_list and :assignee' do
+    assert_respond_to tasks(:wash_car), :task_list
+    assert_respond_to tasks(:wash_car), :assignee
   end
 end

@@ -34,17 +34,17 @@ class TaskListTest < ActiveSupport::TestCase
     assert_not_recurring_combination(task_lists(:today), task_lists(:never), attributes)
   end
 
-  test 'should only be created by someone that belongs to the team' do
+  test 'should not save task by creator that does not belongs to the team' do
     task_list = task_lists(:today)
     creator = User.create(
       first_name: 'Giselly', last_name: 'Soares', email: Faker::Internet.email, password: '123123'
     )
 
-    assert_not task_list.update(creator:), 'Created the task_list with a creator that does not belong to the team'
+    assert_not task_list.update(creator:), 'Saved the task_list with a creator that does not belong to the team'
     assert task_list.errors.include?(:creator)
   end
 
-  test 'should respond to belongs_to tasks' do
+  test 'should respond to belongs_to :tasks' do
     assert_respond_to task_lists(:today), :tasks
   end
 end

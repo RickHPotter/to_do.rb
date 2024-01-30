@@ -26,7 +26,8 @@ class Task < ApplicationRecord
 
   # @validations ..............................................................
   validates :task_name, :order, :progress, :priority, :due_date, presence: true
-  validates :task_name, uniqueness: { scope: %i[task_list assignee] }
+  validates :task_name, uniqueness: { scope: %i[task_list_id assignee_id] }
+  validate :check_if_assignee_is_in_task_list
 
   # @callbacks ................................................................
   # @scopes ...................................................................
@@ -34,5 +35,21 @@ class Task < ApplicationRecord
   # @class_methods ............................................................
   # @public_instance_methods ..................................................
   # @protected_instance_methods ...............................................
+
+  protected
+
+  # The `assignee` of a task should always be in the task_list that the task
+  # belongs to.
+  #
+  # @return [Boolean]
+  #
+  def check_if_assignee_is_in_task_list
+    return if errors.any?
+    return if task_list.members.include?(assignee)
+
+    errors.add(:assignee, 'is not in the task_list')
+    false
+  end
+
   # @private_instance_methods .................................................
 end

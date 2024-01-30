@@ -24,10 +24,12 @@ class TaskList < ApplicationRecord
   belongs_to :team
   belongs_to :creator, class_name: :User, foreign_key: :creator_id
   has_many :tasks
+  has_many :task_list_users
+  has_many :users, through: :task_list_users
 
   # @validations ..............................................................
   validates :task_list_name, :policy, :progress, :priority, :due_date, presence: true
-  validates :task_list_name, uniqueness: { scope: :creator }
+  validates :task_list_name, uniqueness: { scope: :creator_id }
   validate :check_if_creator_is_in_team
 
   # @callbacks ................................................................
@@ -35,10 +37,23 @@ class TaskList < ApplicationRecord
   # @additional_config ........................................................
   # @class_methods ............................................................
   # @public_instance_methods ..................................................
+  # Helper method to retrieve the creator and the team users.
+  #
+  # @return [Array]
+  #
+  def members
+    [creator, *users]
+  end
+
   # @protected_instance_methods ...............................................
 
   protected
 
+  # The `creator` of a task_list should always be in the team that the task_list
+  # belongs to.
+  #
+  # @return [Boolean]
+  #
   def check_if_creator_is_in_team
     return if errors.any?
     return if team.members.include?(creator)

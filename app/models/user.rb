@@ -54,6 +54,8 @@ class User < ApplicationRecord
 
   protected
 
+  # This is temporary
+  # TODO: either put up a mail server or take down :confirmable
   def confirm_user
     self.confirmed_at = Date.current
   end

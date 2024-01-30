@@ -8,3 +8,10 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
+one:
+  user: jane_doe
+  task_list: today
+
+two:
+  user: john_doe
+  task_list: today
