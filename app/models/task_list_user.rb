@@ -2,25 +2,24 @@
 
 # == Schema Information
 #
-# Table name: team_users
+# Table name: task_list_users
 #
-#  id         :bigint           not null, primary key
-#  team_id    :bigint           not null
-#  user_id    :bigint           not null
-#  admin      :boolean          default(FALSE), not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id           :bigint           not null, primary key
+#  task_list_id :bigint           not null
+#  user_id      :bigint           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
-class TeamUser < ApplicationRecord
+class TaskListUser < ApplicationRecord
   # @extends ..................................................................
   # @includes .................................................................
   # @security (i.e. attr_accessible) ..........................................
   # @relationships ............................................................
-  belongs_to :team
+  belongs_to :task_list
   belongs_to :user
 
   # @validations ..............................................................
-  validates :admin, presence: true, inclusion: { in: [true, false] }
+  validates :task_list_id, uniqueness: { scope: :user_id }
 
   # @callbacks ................................................................
   # @scopes ...................................................................

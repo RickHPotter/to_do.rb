@@ -2,25 +2,25 @@
 
 # == Schema Information
 #
-# Table name: team_users
+# Table name: categories
 #
-#  id         :bigint           not null, primary key
-#  team_id    :bigint           not null
-#  user_id    :bigint           not null
-#  admin      :boolean          default(FALSE), not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id            :bigint           not null, primary key
+#  category_name :string           not null
+#  description   :text
+#  team_id       :bigint           not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
-class TeamUser < ApplicationRecord
+class Category < ApplicationRecord
   # @extends ..................................................................
   # @includes .................................................................
   # @security (i.e. attr_accessible) ..........................................
   # @relationships ............................................................
   belongs_to :team
-  belongs_to :user
 
   # @validations ..............................................................
-  validates :admin, presence: true, inclusion: { in: [true, false] }
+  validates :category_name, presence: true
+  validates :category_name, uniqueness: { scope: :team_id }
 
   # @callbacks ................................................................
   # @scopes ...................................................................

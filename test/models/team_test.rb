@@ -8,7 +8,7 @@
 #  team_name   :string           not null
 #  description :text
 #  creator_id  :bigint           not null
-#  policy      :integer          default(0), not null
+#  policy      :integer          default("public"), not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
@@ -16,19 +16,12 @@ require 'test_helper'
 
 class TeamTest < ActiveSupport::TestCase
   test 'should save team' do
-    assert teams(:sept).save, 'Saved the team'
+    assert teams(:sept).save, 'Failed to save the team'
   end
 
-  test 'should not save team without a team_name' do
-    team = teams(:sept).dup
-    team.team_name = nil
-    assert_not team.save, 'Saved the team without a team_name'
-  end
-
-  test 'should not save team without a creator' do
-    team = teams(:mizu).dup
-    team.creator = nil
-    assert_not team.save, 'Saved the team without a creator'
+  test 'should not save team without required attributes' do
+    attributes = %i[team_name creator_id]
+    assert_presence_of_required_attribute(teams(:sept), attributes)
   end
 
   test 'should not save team with a repeating team_name in the scope of the creator' do

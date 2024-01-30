@@ -1,0 +1,21 @@
+# == Schema Information
+#
+# Table name: categories
+#
+#  id            :bigint           not null, primary key
+#  category_name :string           not null
+#  description   :text
+#  team_id       :bigint           not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
+chore:
+  category_name: Chore
+  description: Things you got to do at home so that people dont look down on you and so that you dont starve either
+  team: sept
+
+healthy:
+  category_name: Healthy
+  description: Things that might make you live a little longer to see the fall of your enemies
+  team: sept

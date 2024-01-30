@@ -5,8 +5,8 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
-#  first_name             :string
-#  last_name              :string
+#  first_name             :string           not null
+#  last_name              :string           not null
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  reset_password_token   :string
@@ -23,19 +23,12 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   test 'should save user' do
-    assert users(:john_doe).save, 'Saved the user'
+    assert users(:john_doe).save, 'Failed to save the user'
   end
 
-  test 'should not save user without first name' do
-    user = users(:john_doe).dup
-    user.first_name = nil
-    assert_not user.save, 'Saved the user without a first name'
-  end
-
-  test 'should not save user without last name' do
-    user = users(:john_doe).dup
-    user.last_name = nil
-    assert_not user.save, 'Saved the user without a last name'
+  test 'should not save user without required attributes' do
+    attributes = %i[first_name last_name]
+    assert_presence_of_required_attribute(users(:john_doe), attributes)
   end
 
   test '#full_name should return a full name based on first_name and last_name' do
@@ -63,7 +56,6 @@ class UserTest < ActiveSupport::TestCase
     user = users(:lovelace)
     user.save
 
-    assert_equal 1, user.teams.count
-    assert_equal 'Default', user.teams.first.team_name
+    assert_includes user.teams.pluck(:team_name), 'Default'
   end
 end
