@@ -32,7 +32,7 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
 
     sign_in @user
 
-    team = { team_name: 'My Beloved Team', description: 'My lovely team', policy: :policy_public }
+    team = { team_name: 'My Beloved Team', description: 'My lovely team', policy: :public }
     post teams_path, params: { team: }
 
     assert_response :success
@@ -60,7 +60,7 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
     team = teams(:sept)
     team.save
 
-    team = { team_name: 'My Beloved Team', description: 'My lovely team', policy: :policy_public }
+    team = { team_name: 'My Beloved Team', description: 'My lovely team', policy: :public }
     patch team_path, params: { id: team.id, team: }
 
     assert_response :success

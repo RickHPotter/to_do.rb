@@ -21,7 +21,7 @@ module ComponentsHelper
   # @return [String] tailwind class for form button
   #
   def form_button_class(options)
-    "flex w-full py-2 px-4 justify-center rounded-md border border-transparent #{options[:colour][:bg]}
+    "flex w-full py-2 px-4 justify-center rounded-md border #{options[:colour][:border]} #{options[:colour][:bg]}
     text-sm font-medium #{options[:colour][:text]} shadow-sm #{options[:colour][:hover][:bg]}
     focus:outline-none focus:ring-2 #{options[:colour][:focus][:ring]} focus:ring-offset-2"
   end

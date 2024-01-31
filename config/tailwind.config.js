@@ -12,6 +12,10 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
+      colors: {
+        'orange': { 360: '#FF700A' },
+        'purple': { 360: '#2C1A55' },
+      },
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },

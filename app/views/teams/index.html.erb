@@ -1,4 +1,43 @@
-<div>
-  <h1 class="font-bold text-4xl">Teams#index</h1>
-  <p>Find me in app/views/teams/index.html.erb</p>
+<div class='w-full'>
+  <div class="flex flex-wrap">
+    <div class="border-e border-gray-200 dark:border-gray-700">
+      <nav class="flex flex-col space-y-2" aria-label="Tabs" role="tablist" data-hs-tabs-vertical="true">
+        <% @teams.each do |team| %>
+          <button type="button" class="hs-tab-active:border-blue-500 hs-tab-active:text-blue-600 dark:hs-tab-active:text-blue-600 py-1 pe-4 inline-flex items-center gap-x-2 border-e-2 border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600 disabled:opacity-50 disabled:pointer-events-none dark:text-gray-400 dark:hover:text-blue-500 active" id="vertical-tab-with-border-item-1" data-hs-tab="#vertical-tab-with-border-1" aria-controls="vertical-tab-with-border-1" role="tab">
+            <%= link_to team.team_name, team,
+                        class: 'font-medium tracking-tight',
+                        data: { 'turbo-frame': 'team_show' } %>
+          </button>
+        <% end %>
+      </nav>
+    </div>
+
+    <div class="ms-3">
+      <div class='min-w-full'>
+        <%= turbo_frame_tag :team_show do %>
+          <%= render @teams %>
+        <% end %>
+      </div>
+
+      <div id="vertical-tab-with-border-1" role="tabpanel" aria-labelledby="vertical-tab-with-border-item-1">
+        <p class="text-gray-500 dark:text-gray-400">
+        This is the <em class="font-semibold text-gray-800 dark:text-gray-200">first</em> item's tab body.
+        </p>
+      </div>
+      <div id="vertical-tab-with-border-2" class="hidden" role="tabpanel" aria-labelledby="vertical-tab-with-border-item-2">
+        <p class="text-gray-500 dark:text-gray-400">
+        This is the <em class="font-semibold text-gray-800 dark:text-gray-200">second</em> item's tab body.
+        </p>
+      </div>
+      <div id="vertical-tab-with-border-3" class="hidden" role="tabpanel" aria-labelledby="vertical-tab-with-border-item-3">
+        <p class="text-gray-500 dark:text-gray-400">
+        This is the <em class="font-semibold text-gray-800 dark:text-gray-200">third</em> item's tab body.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class='flex justify-between items-center'>
+    <h1 class='text-white font-bold text-4xl'>Teams</h1>
+  </div>
 </div>

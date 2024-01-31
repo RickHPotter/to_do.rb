@@ -66,7 +66,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_29_145548) do
     t.integer "order", default: 0, null: false
     t.integer "progress", default: 0, null: false
     t.integer "priority", default: 0, null: false
-    t.date "due_date", default: "2024-01-29", null: false
+    t.date "due_date", null: false
     t.bigint "task_list_id", null: false
     t.bigint "assignee_id"
     t.datetime "created_at", null: false

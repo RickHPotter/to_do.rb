@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class TeamsController < ApplicationController
-  def index; end
+  def index
+    @teams = Team.includes(:creator).by_user(current_user)
+  end
 
   def show; end
 

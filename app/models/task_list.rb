@@ -45,7 +45,7 @@ class TaskList < ApplicationRecord
   # @return [Array]
   #
   def members
-    [creator, *users]
+    [creator, *users].uniq
   end
 
   # @protected_instance_methods ...............................................

@@ -9,7 +9,7 @@ class CreateTasks < ActiveRecord::Migration[7.1]
       t.integer :order, null: false, default: 0
       t.integer :progress, null: false, default: 0
       t.integer :priority, null: false, default: 0
-      t.date :due_date, null: false, default: Date.today
+      t.date :due_date, null: false
 
       t.references :task_list, null: false, foreign_key: true
       t.references :assignee, foreign_key: { to_table: :users }

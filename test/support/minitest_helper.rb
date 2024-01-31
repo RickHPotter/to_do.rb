@@ -31,6 +31,10 @@ module MinitestHelper
     assert helper.errors.messages.keys.uniq.intersect?(attributes)
   end
 
+  # Asserts that the user can only access a previous path in case he is logged in
+  #
+  # @return [void]
+  #
   def assert_redirect_to_sign_in
     assert_response :redirect
     assert_redirected_to new_user_session_path
