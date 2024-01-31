@@ -1,11 +1,63 @@
 # frozen_string_literal: true
 
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+# Model Structure
 #
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+# ├── User/
+# │   └── Teams (has_many through TeamUser)
+# └── Team/
+#     ├── Users (has_many through TeamUser)
+#     ├── Categories
+#     └── TaskLists/
+#         ├── Categories (has_many through CategoryTaskList)
+#         ├── Users (has_many through TaskListUser)
+#         ├── Creator (as User; must belong to Team)
+#         └── Tasks/
+#             └── Assignee (as User; must belong to TaskList)
+
+team_names = %w[Konohagakure Sunagakure Amegakure Kumogakure Iwagakure]
+
+%w[John Jane Jimmy Janet Dough].each do |name|
+  user = User.create(
+    first_name: name,
+    last_name: 'Doe',
+    email: "#{name}@example.com",
+    password: '123123', password_confirmation: '123123'
+  )
+
+  Team.create(
+    team_name: team_names.pop,
+    description: 'A realy good description.',
+    creator_id: user.id,
+    policy: :public
+  )
+end
+
+# Every team should have at least one user left behind.
+Team.where.not(team_name: 'Default').each do |team|
+  User.where.not(id: team.creator_id).all.sample(3).each do |user|
+    TeamUser.create(
+      team_id: team.id,
+      user_id: user.id,
+      admin: [true, false].sample
+    )
+  end
+
+  %w[Home Work Miscelaneous].each do |category|
+    Category.create(
+      category_name: category,
+      team_id: team.id
+    )
+  end
+
+  3.times.each do |i|
+    TaskList.create(
+      task_list_name: "Task List #{i}",
+      policy: :public,
+      progress: 0,
+      priority: :low,
+      team_id: team.id,
+      creator_id: team.members.sample.id,
+      due_date: Date.today
+    )
+  end
+end

@@ -9,9 +9,12 @@ module.exports = {
     './app/components/**/*.html.erb',
     './app/views/**/*.{erb,haml,html,slim}'
   ],
-  darkMode: 'class',
   theme: {
     extend: {
+      colors: {
+        'orange': { 360: '#FF700A' },
+        'purple': { 360: '#2C1A55' },
+      },
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },

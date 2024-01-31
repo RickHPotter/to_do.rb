@@ -58,18 +58,18 @@ class ButtonComponent < ViewComponent::Base
   # Sets the colour for the button based on the colour option.
   #
   # @param colour [Symbol] The colour of the button.
-  # @option colour [Symbol] :indigo
-  # @option colour [Symbol] :red
+  # @option colour [Symbol] :purple
+  # @option colour [Symbol] :orange
   #
   # @return [Hash] The colour of the button.
   #
   def colours(colour)
     case colour
-    when nil, :indigo
-      { text: 'text-white', bg: 'bg-indigo-600',
-        hover: { bg: 'hover:bg-indigo-700' }, focus: { ring: 'focus:ring-black' } }
-    when :red
-      { text: 'text-black', bg: 'bg-red-500',
+    when nil, :purple
+      { text: 'text-white', bg: 'bg-purple-360', border: 'border-orange-360',
+        hover: { bg: 'hover:bg-indigo-900' }, focus: { ring: 'focus:ring-black' } }
+    when :orange
+      { text: 'text-black', bg: 'bg-orange-360', border: 'rounded-md',
         hover: { bg: 'hover:bg-red-600' }, focus: { ring: 'focus:ring-black' } }
     end
   end

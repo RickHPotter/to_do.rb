@@ -18,6 +18,9 @@
 #
 class TaskList < ApplicationRecord
   # @extends ..................................................................
+  enum policy: { public: 0, protected: 1, private: 2 }, _prefix: true
+  enum priority: { low: 0, medium: 1, high: 2 }, _prefix: true
+
   # @includes .................................................................
   # @security (i.e. attr_accessible) ..........................................
   # @relationships ............................................................
@@ -42,7 +45,7 @@ class TaskList < ApplicationRecord
   # @return [Array]
   #
   def members
-    [creator, *users]
+    [creator, *users].uniq
   end
 
   # @protected_instance_methods ...............................................

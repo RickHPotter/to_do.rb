@@ -16,12 +16,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should fail miserably trying to visit root_path without signing in' do
-    # NOTE: this is not real case scenario, change route later
-    get protected_path
-    assert_response :redirect
-    assert_redirected_to new_user_session_path
-    follow_redirect!
-    assert_match(/sign in/i, response.body)
+    get root_path
+    assert_redirect_to_sign_in
   end
 
   test 'should create valid user' do

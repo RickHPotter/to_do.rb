@@ -1,0 +1,7 @@
+<%= turbo_frame_tag :container do %>
+  <%= render TeamsCardComponent.new title: @team.team_name,
+                                    description: @team.description,
+                                    creator: { name: @team.creator.full_name, image_url: @team.creator.image_url },
+                                    members: @team.members
+  %>
+<% end %>

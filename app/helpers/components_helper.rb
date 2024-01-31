@@ -8,7 +8,7 @@ module ComponentsHelper
   #
   def input_class
     # 'block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
-    'peer border-0 rounded-[7px] shadow-md outline-none w-full px-2.5 pb-2.5 pt-3 appearance-none text-sm text-gray-900 transition-all focus:ring-1 focus:ring-indigo-600'
+    'peer border-0 shadow-md outline-none w-full px-2.5 pb-2.5 pt-3 appearance-none text-sm text-gray-900 transition-all focus:ring-1 focus:ring-indigo-600'
   end
 
   # @return [String] tailwind class for label
@@ -21,7 +21,7 @@ module ComponentsHelper
   # @return [String] tailwind class for form button
   #
   def form_button_class(options)
-    "flex w-full py-2 px-4 justify-center rounded-md border border-transparent #{options[:colour][:bg]}
+    "flex w-full py-2 px-4 justify-center rounded-md border #{options[:colour][:border]} #{options[:colour][:bg]}
     text-sm font-medium #{options[:colour][:text]} shadow-sm #{options[:colour][:hover][:bg]}
     focus:outline-none focus:ring-2 #{options[:colour][:focus][:ring]} focus:ring-offset-2"
   end

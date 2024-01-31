@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TꙨdꙨ</title>
+    <title>TꙨDꙨ</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -12,22 +12,33 @@
     <%= hotwire_livereload_tags if Rails.env.development? %>
   </head>
 
-  <body class=''>
-    <main class="h-screen bg-zinc-300 dark:bg-gray-900 text-black dark:text-white antialiased">
+  <body class='h-screen box-border mx-auto max-w-7xl bg-zinc-200 text-black antialiased'>
+    <%= render NavBarComponent.new logo: 'shared/logo',
+                                   items_left: [{ 'Dashboard' => dashboard_path, 'Teams' => teams_path }],
+                                   items_right: [{ 'Settings' => edit_user_registration_path, 'Logout' => destroy_user_session_path }] %>
+
+    <header class="bg-white shadow">
+      <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <h1 class="text-3xl font-bold tracking-tight text-gray-900"><%="#{controller_name.humanize} #{DateTime.now}" %></h1>
+      </div>
+    </header>
+
+    <main class=''>
       <div class="flex justify-between">
-        <div class="p-2">
-          <%= render 'shared/dark_mode' %>
-        </div>
         <div>
           <!-- FIXME: this should be a turbo view_component -->
           <p class="notice"><%= notice %></p>
           <p class="alert"><%= alert %></p>
         </div>
+
       </div>
 
-      <section class="container mx-auto mt-28 px-5 flex">
+      <section class="min-h-[calc(100vh-16rem)] rounded-lg bg-white shadow mx-auto mt-16 px-5">
         <%= yield %>
       </section>
     </main>
+
+    <link rel="stylesheet" href="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.css" />
   </body>
+
 </html>
