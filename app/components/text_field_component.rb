@@ -7,7 +7,7 @@ class TextFieldComponent < ViewComponent::Base
   include TranslateHelper
 
   # @security (i.e. attr_accessible) ..........................................
-  attr_reader :form, :object, :field, :options, :wrapper
+  attr_reader :form, :object, :field, :items, :options
 
   # @public_instance_methods ..................................................
   # Initialises a Component of Type TextField
@@ -24,16 +24,15 @@ class TextFieldComponent < ViewComponent::Base
   # @option options [Boolean] :autofocus Whether the text field should be autofocused (default is false).
   # @option options [String] :autocomplete The autocomplete attribute for the text field (default is the field name).
   # @option options [Hash] :data Additional data attributes for the text field.
-  # @param wrapper [Boolean] Whether to include the wrapper for the text field (default is true).
   #
   # @return [TextFieldComponent] A new instance of TextFieldComponent.
   #
-  def initialize(form:, object:, field:, options: {}, wrapper: true)
+  def initialize(form:, object:, field:, items: nil, options: {})
     @form = form
     @object = object
     @field = field
+    @items = items
     @options = default_options(options)
-    @wrapper = wrapper
     super
   end
 

@@ -1,43 +1,25 @@
-<div class='w-full'>
-  <div class="flex flex-wrap">
-    <div class="border-e border-gray-200 dark:border-gray-700">
-      <nav class="flex flex-col space-y-2" aria-label="Tabs" role="tablist" data-hs-tabs-vertical="true">
-        <% @teams.each do |team| %>
-          <button type="button" class="hs-tab-active:border-blue-500 hs-tab-active:text-blue-600 dark:hs-tab-active:text-blue-600 py-1 pe-4 inline-flex items-center gap-x-2 border-e-2 border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600 disabled:opacity-50 disabled:pointer-events-none dark:text-gray-400 dark:hover:text-blue-500 active" id="vertical-tab-with-border-item-1" data-hs-tab="#vertical-tab-with-border-1" aria-controls="vertical-tab-with-border-1" role="tab">
-            <%= link_to team.team_name, team,
-                        class: 'font-medium tracking-tight',
-                        data: { 'turbo-frame': 'team_show' } %>
-          </button>
-        <% end %>
-      </nav>
-    </div>
-
-    <div class="ms-3">
-      <div class='min-w-full'>
-        <%= turbo_frame_tag :team_show do %>
-          <%= render @teams %>
-        <% end %>
-      </div>
-
-      <div id="vertical-tab-with-border-1" role="tabpanel" aria-labelledby="vertical-tab-with-border-item-1">
-        <p class="text-gray-500 dark:text-gray-400">
-        This is the <em class="font-semibold text-gray-800 dark:text-gray-200">first</em> item's tab body.
-        </p>
-      </div>
-      <div id="vertical-tab-with-border-2" class="hidden" role="tabpanel" aria-labelledby="vertical-tab-with-border-item-2">
-        <p class="text-gray-500 dark:text-gray-400">
-        This is the <em class="font-semibold text-gray-800 dark:text-gray-200">second</em> item's tab body.
-        </p>
-      </div>
-      <div id="vertical-tab-with-border-3" class="hidden" role="tabpanel" aria-labelledby="vertical-tab-with-border-item-3">
-        <p class="text-gray-500 dark:text-gray-400">
-        This is the <em class="font-semibold text-gray-800 dark:text-gray-200">third</em> item's tab body.
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <div class='flex justify-between items-center'>
-    <h1 class='text-white font-bold text-4xl'>Teams</h1>
-  </div>
+<!-- FIXME: this should be a ViewComponent -->
+<div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+  <ul class="flex flex-wrap -mb-px">
+    <li class="me-2">
+      <%= link_to '+ New Team', new_team_path,
+                  class: 'inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300',
+                  data: { 'turbo-frame': :container } %>
+    </li>
+    <% @teams.each do |team| %>
+      <li class="me-2">
+        <%= link_to team.team_name, team,
+                    class: 'inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300',
+                    data: { 'turbo-frame': :container } %>
+      </li>
+    <% end %>
+    <!-- FIXME: add stimulus to manage active
+    <li class="me-2">
+        <a href="#" class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500" aria-current="page">Dashboard</a>
+    </li>
+    -->
+  </ul>
 </div>
+<!-- FIXME: this should be a ViewComponent -->
+
+<%= turbo_frame_tag :container, src: 'teams/new' %>

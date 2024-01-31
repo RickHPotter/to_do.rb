@@ -8,6 +8,7 @@ en:
       team:
         id: ID
         team_name: Team Name
+        description: Description
         creator: Creator
         policy: Policy
         created_at: Created at
@@ -23,6 +24,7 @@ pt-BR:
       team:
         id: ID
         team_name: Nome
+        description: Descrição
         creator: Criador
         policy: Política
         created_at: Criado em
