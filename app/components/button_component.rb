@@ -71,7 +71,7 @@ class ButtonComponent < ViewComponent::Base
       { text: 'text-white', bg: 'bg-purple-360', border: 'border-orange-360',
         hover: { bg: 'hover:bg-indigo-900' }, focus: { ring: 'focus:ring-black' } }
     when :orange
-      { text: 'text-black', bg: 'bg-orange-360', border: 'rounded-md',
+      { text: 'text-white', bg: 'bg-orange-360', border: 'rounded-md',
         hover: { bg: 'hover:bg-red-600' }, focus: { ring: 'focus:ring-black' } }
     end
   end

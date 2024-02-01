@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class='h-screen box-border bg-zinc-200!important'>
+<html class='h-screen box-border'>
   <head>
     <title>TꙨDꙨ</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -8,13 +8,12 @@
 
     <%= stylesheet_link_tag 'tailwind', 'inter-font', "data-turbo-track": 'reload' %>
     <%= stylesheet_link_tag 'application', "data-turbo-track": 'reload' %>
-    <%= stylesheet_link_tag  "https://cdn.jsdelivr.net/npm/daisyui@4.6.1/dist/full.min.css" %>
 
     <%= javascript_importmap_tags %>
     <%= hotwire_livereload_tags if Rails.env.development? %>
   </head>
 
-  <body class='h-screen box-border mx-auto max-w-7xl bg-zinc-200 text-black antialiased'>
+  <body class='mx-auto max-w-7xl text-black antialiased'>
     <%= render NavBarComponent.new logo: 'shared/logo',
                                    items_left: [{ 'Dashboard' => dashboard_path, 'Teams' => teams_path }],
                                    items_right: [{ 'Settings' => edit_user_registration_path, 'Logout' => destroy_user_session_path }] %>
@@ -25,23 +24,14 @@
       </div>
     </header>
 
-    <main class=''>
-      <div class="flex justify-between">
-        <div>
-          <!-- FIXME: this should be a turbo view_component -->
-          <% if notice || alert %>
-            <p class="notice"><%= notice %></p>
-            <p class="alert"><%= alert %></p>
-          <% end %>
-        </div>
-
+    <main>
+      <div class="h-16 flex justify-center items-center">
+        <%= render 'shared/flash' %>
       </div>
 
-      <section class="min-h-[calc(100vh-16rem)] rounded-lg bg-white shadow mx-auto mt-16 px-5">
+      <section class="min-h-[calc(100vh-16rem)] rounded-lg bg-white shadow mx-auto p-5">
         <%= yield %>
       </section>
     </main>
-
   </body>
-
 </html>

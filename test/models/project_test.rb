@@ -25,7 +25,7 @@ class ProjectTest < ActiveSupport::TestCase
   end
 
   test 'should not save project without required attributes' do
-    attributes = %i[project_name policy progress priority due_date team_id creator_id]
+    attributes = %i[project_name policy priority due_date team_id creator_id]
     assert_presence_of_required_attribute(projects(:today), attributes)
   end
 

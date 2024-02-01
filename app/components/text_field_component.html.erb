@@ -8,7 +8,7 @@
 
 <div class="relative h-11 w-full min-w-[200px]">
   <% if options[:type] == :select && items.present? %>
-    <%= form.select field, items, opts %>
+    <%= form.select field, items, {}, opts %>
   <% elsif options[:type] == :textarea %>
     <%= form.text_area field, opts.merge(placeholder: ' ') %>
   <% else %>

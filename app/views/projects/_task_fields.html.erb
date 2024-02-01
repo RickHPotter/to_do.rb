@@ -1,31 +1,50 @@
-<div class="nested-fields">
+<div class="nested-form-wrapper" data-new-record="<%= form.object.new_record? %>">
   <div class="flex space-x-12">
-    <div class="flex w-2/3 flex-col gap-6 my-5">
-      <%= render TextFieldComponent.new(form:, field: :task_name, options: { autofocus: true }) %>
-    </div>
-
-    <div class="flex w-1/3 flex-col gap-6 my-5">
-      <%= render TextFieldComponent.new(form:, field: :description) %>
-    </div>
-  </div>
-
-  <div class="flex w-1/3 flex-col gap-6 my-5">
-    <%= render TextFieldComponent.new(form:, field: :progress) %>
-  </div>
-
-  <div class="flex space-x-12">
-    <div class="flex w-1/3 flex-col gap-6 my-5">
-      <%= render TextFieldComponent.new(form:, field: :order) %>
-    </div>
-
-    <div class="flex w-1/3 flex-col gap-6 my-5">
-      <%= render TextFieldComponent.new(form:, field: :priority) %>
-    </div>
-
-    <div class="flex w-1/3 flex-col gap-6 my-5">
+      <div class="flex w-[200px] flex-col my-5">
       <%= render TextFieldComponent.new(form:, field: :assignee_id) %>
     </div>
+
+      <div class="flex w-full flex-col my-5">
+      <%= render TextFieldComponent.new(form:, field: :task_name, options: { autofocus: true }) %>
+    </div>
   </div>
+
+  <div class="flex flex-col pt-5 pb-12">
+    <%= render TextFieldComponent.new(form:, field: :description, options: { type: :textarea }) %>
+  </div>
+
+  <!-- FIXME: DRY and move to ViewComponent -->
+  <div data-controller='range'>
+    <%= form.text_field :progress,
+                        type: :range,
+                        class: 'range range-error',
+                        min: 0, max: 100, step: 25, value: 25,
+                        data: { action: 'range#update' } %>
+                      <div class="w-full flex justify-between text-xs px-2">
+                        <span>Didn't start</span>
+                        <span>Just started</span>
+                        <span>Halfway there</span>
+                        <span>Almost finished</span>
+                        <span>Done!</span>
+                      </div>
+  </div>
+
+  <!-- FIXME: DRY and move to ViewComponent -->
+  <div class="flex space-x-12">
+    <ul class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex">
+      <% %w[low medium high].each do |priority| %>
+        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r">
+          <div class="flex items-center ps-3">
+            <%= form.radio_button :priority, priority, id: "task_priority_#{priority}", class: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 ring-offset-gray-700 focus:ring-offset-gray-700 focus:ring-2' %>
+            <%= form.label :priority, priority.capitalize, for: "task_priority_#{priority}", class: 'w-full py-3 ms-2 text-sm font-medium text-black' %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <%= render TextFieldComponent.new(form:, field: :due_date, options: { type: :date }) %>
+
 
   <%= render ButtonComponent.new(options: { label: 'Remove Task', colour: :orange, data: { action: 'nested-form#remove' } }) %>
 </div>

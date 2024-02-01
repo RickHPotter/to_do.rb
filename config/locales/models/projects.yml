@@ -9,12 +9,14 @@ en:
         id: ID
         project_name: Project Name
         description: Description
+        team_id: Team
         team: Team
         creator: Creator
         policy: Policy
         progress: Progress
         priority: Priority
         order: Order
+        due_date: Deadline
         created_at: Created at
         updated_at: Updated at
 
@@ -29,11 +31,13 @@ pt-BR:
         id: ID
         project_name: Nome da Lista de Tarefas
         description: Descricão
+        team_id: Time
         team: Time
         creator: Criador
         policy: Política
         progress: Progresso
         priority: Prioridade
         order: Ordem
+        due_date: Data de Entrega
         created_at: Criado em
         updated_at: Atualizado em

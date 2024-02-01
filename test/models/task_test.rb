@@ -24,7 +24,7 @@ class TaskTest < ActiveSupport::TestCase
   end
 
   test 'should not save task without required attributes' do
-    attributes = %i[task_name order progress priority due_date project_id]
+    attributes = %i[task_name progress priority due_date project_id]
     assert_presence_of_required_attribute(tasks(:wash_car), attributes)
   end
 

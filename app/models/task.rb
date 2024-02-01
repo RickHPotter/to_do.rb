@@ -32,6 +32,8 @@ class Task < ApplicationRecord
   validate :check_if_assignee_is_in_project
 
   # @callbacks ................................................................
+  before_validation :set_order, on: :create
+
   # @scopes ...................................................................
   # @additional_config ........................................................
   # @class_methods ............................................................
@@ -51,6 +53,14 @@ class Task < ApplicationRecord
 
     errors.add(:assignee, 'is not in the project')
     false
+  end
+
+  # Sets `order` to the next value in the project.
+  #
+  # @return [void]
+  #
+  def set_order
+    self.order ||= project.tasks.count
   end
 
   # @private_instance_methods .................................................

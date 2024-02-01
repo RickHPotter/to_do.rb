@@ -2,6 +2,7 @@
 
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
+  before_action :set_teams, only: %i[new create edit update]
 
   def index
     @projects = Project.all
@@ -14,9 +15,7 @@ class ProjectsController < ApplicationController
     @project.tasks.build
   end
 
-  def edit
-    @project.tasks.build
-  end
+  def edit; end
 
   def create
     @project = Project.new(project_params)
@@ -59,11 +58,15 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
   end
 
+  def set_teams
+    @teams = current_user.teams.pluck(:team_name, :id)
+  end
+
   def project_params
     params.require(:project).permit(
       :project_name, :description, :progress, :priority,
       :due_date, :team_id, :creator_id,
-      task_attributes: %i[id task_name description order progress priority due_date assignee_id _destroy]
+      tasks_attributes: %i[id task_name description order progress priority due_date assignee_id _destroy]
     )
   end
 end

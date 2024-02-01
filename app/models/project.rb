@@ -38,6 +38,9 @@ class Project < ApplicationRecord
   validate :check_if_creator_is_in_team
 
   # @callbacks ................................................................
+  before_validation :set_policy
+  before_validation :set_progress
+
   # @scopes ...................................................................
   # @additional_config ........................................................
   # @class_methods ............................................................
@@ -65,6 +68,24 @@ class Project < ApplicationRecord
 
     errors.add(:creator, 'is not in the team')
     false
+  end
+
+  # Sets `policy` to public for the project in case it was not previously set.
+  #
+  # @return [void]
+  #
+  def set_policy
+    self.policy ||= :public
+  end
+
+  # Sets `progress` only based on the `progress` of the `tasks`.
+  #
+  # @return [void]
+  #
+  def set_progress
+    return self.progress = 100 if tasks.empty?
+
+    self.progress = tasks.sum(:progress) / tasks.size
   end
 
   # @private_instance_methods .................................................
