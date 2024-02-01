@@ -2,24 +2,24 @@
 
 # == Schema Information
 #
-# Table name: category_task_lists
+# Table name: project_users
 #
 #  id           :bigint           not null, primary key
-#  category_id  :bigint           not null
-#  task_list_id :bigint           not null
+#  project_id :bigint           not null
+#  user_id      :bigint           not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
-class CategoryTaskList < ApplicationRecord
+class ProjectUser < ApplicationRecord
   # @extends ..................................................................
   # @includes .................................................................
   # @security (i.e. attr_accessible) ..........................................
   # @relationships ............................................................
-  belongs_to :category
-  belongs_to :task_list
+  belongs_to :project
+  belongs_to :user
 
   # @validations ..............................................................
-  validates :category_id, uniqueness: { scope: :task_list_id }
+  validates :project_id, uniqueness: { scope: :user_id }
 
   # @callbacks ................................................................
   # @scopes ...................................................................

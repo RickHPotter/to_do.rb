@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-# TaskList Migration
-class CreateTaskLists < ActiveRecord::Migration[7.1]
+# Project Migration
+class CreateProjects < ActiveRecord::Migration[7.1]
   def change
-    create_table :task_lists do |t|
-      t.string :task_list_name, null: false
+    create_table :projects do |t|
+      t.string :project_name, null: false
       t.text :description
       t.integer :policy, null: false, default: 0
       t.integer :progress, null: false, default: 0
@@ -17,6 +17,6 @@ class CreateTaskLists < ActiveRecord::Migration[7.1]
       t.timestamps
     end
 
-    add_index :task_lists, %i[task_list_name creator_id], unique: true
+    add_index :projects, %i[project_name creator_id], unique: true
   end
 end

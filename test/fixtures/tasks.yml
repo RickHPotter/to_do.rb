@@ -9,7 +9,7 @@
 #  progress     :integer          default(0), not null
 #  priority     :integer          default(0), not null
 #  due_date     :date             default(Mon, 29 Jan 2024), not null
-#  task_list_id :bigint           not null
+#  project_id :bigint           not null
 #  assignee_id  :bigint
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
@@ -18,7 +18,7 @@
 wash_car:
   task_name: Wash Car
   description: Use x and y to clean, z to polish and w to dry
-  task_list: today
+  project: today
   order: 2
   progress: 0
   priority: 2
@@ -28,7 +28,7 @@ wash_car:
 make_lunch:
   task_name: Make lunch
   description: Make fries with chips and fish, and lemon juice
-  task_list: today
+  project: today
   order: 1
   progress: 0
   priority: 1
@@ -38,7 +38,7 @@ make_lunch:
 work_out:
   task_name: Work out
   description: Go to the gym and do 10 push-ups
-  task_list: today
+  project: today
   order: 3
   progress: 0
   priority: 3

@@ -11,7 +11,7 @@
 #  progress     :integer          default(0), not null
 #  priority     :integer          default(0), not null
 #  due_date     :date             default(Mon, 29 Jan 2024), not null
-#  task_list_id :bigint           not null
+#  project_id :bigint           not null
 #  assignee_id  :bigint
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
@@ -23,13 +23,13 @@ class Task < ApplicationRecord
   # @includes .................................................................
   # @security (i.e. attr_accessible) ..........................................
   # @relationships ............................................................
-  belongs_to :task_list
+  belongs_to :project
   belongs_to :assignee, class_name: :User, foreign_key: :assignee_id, optional: true
 
   # @validations ..............................................................
   validates :task_name, :order, :progress, :priority, :due_date, presence: true
-  validates :task_name, uniqueness: { scope: %i[task_list_id assignee_id] }
-  validate :check_if_assignee_is_in_task_list
+  validates :task_name, uniqueness: { scope: %i[project_id assignee_id] }
+  validate :check_if_assignee_is_in_project
 
   # @callbacks ................................................................
   # @scopes ...................................................................
@@ -40,16 +40,16 @@ class Task < ApplicationRecord
 
   protected
 
-  # The `assignee` of a task should always be in the task_list that the task
+  # The `assignee` of a task should always be in the project that the task
   # belongs to.
   #
   # @return [Boolean]
   #
-  def check_if_assignee_is_in_task_list
+  def check_if_assignee_is_in_project
     return if errors.any?
-    return if task_list.members.include?(assignee)
+    return if project.members.include?(assignee)
 
-    errors.add(:assignee, 'is not in the task_list')
+    errors.add(:assignee, 'is not in the project')
     false
   end
 

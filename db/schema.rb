@@ -24,28 +24,28 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_29_145548) do
     t.index ["team_id"], name: "index_categories_on_team_id"
   end
 
-  create_table "category_task_lists", force: :cascade do |t|
+  create_table "category_projects", force: :cascade do |t|
     t.bigint "category_id", null: false
-    t.bigint "task_list_id", null: false
+    t.bigint "project_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["category_id", "task_list_id"], name: "index_category_task_lists_on_category_id_and_task_list_id", unique: true
-    t.index ["category_id"], name: "index_category_task_lists_on_category_id"
-    t.index ["task_list_id"], name: "index_category_task_lists_on_task_list_id"
+    t.index ["category_id", "project_id"], name: "index_category_projects_on_category_id_and_project_id", unique: true
+    t.index ["category_id"], name: "index_category_projects_on_category_id"
+    t.index ["project_id"], name: "index_category_projects_on_project_id"
   end
 
-  create_table "task_list_users", force: :cascade do |t|
-    t.bigint "task_list_id", null: false
+  create_table "project_users", force: :cascade do |t|
+    t.bigint "project_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["task_list_id", "user_id"], name: "index_task_list_users_on_task_list_id_and_user_id", unique: true
-    t.index ["task_list_id"], name: "index_task_list_users_on_task_list_id"
-    t.index ["user_id"], name: "index_task_list_users_on_user_id"
+    t.index ["project_id", "user_id"], name: "index_project_users_on_project_id_and_user_id", unique: true
+    t.index ["project_id"], name: "index_project_users_on_project_id"
+    t.index ["user_id"], name: "index_project_users_on_user_id"
   end
 
-  create_table "task_lists", force: :cascade do |t|
-    t.string "task_list_name", null: false
+  create_table "projects", force: :cascade do |t|
+    t.string "project_name", null: false
     t.text "description"
     t.integer "policy", default: 0, null: false
     t.integer "progress", default: 0, null: false
@@ -55,9 +55,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_29_145548) do
     t.bigint "creator_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["creator_id"], name: "index_task_lists_on_creator_id"
-    t.index ["task_list_name", "creator_id"], name: "index_task_lists_on_task_list_name_and_creator_id", unique: true
-    t.index ["team_id"], name: "index_task_lists_on_team_id"
+    t.index ["creator_id"], name: "index_projects_on_creator_id"
+    t.index ["project_name", "creator_id"], name: "index_projects_on_project_name_and_creator_id", unique: true
+    t.index ["team_id"], name: "index_projects_on_team_id"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -67,13 +67,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_29_145548) do
     t.integer "progress", default: 0, null: false
     t.integer "priority", default: 0, null: false
     t.date "due_date", null: false
-    t.bigint "task_list_id", null: false
+    t.bigint "project_id", null: false
     t.bigint "assignee_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["assignee_id"], name: "index_tasks_on_assignee_id"
-    t.index ["task_list_id"], name: "index_tasks_on_task_list_id"
-    t.index ["task_name", "task_list_id", "assignee_id"], name: "index_tasks_on_task_name_and_task_list_id_and_assignee_id", unique: true
+    t.index ["project_id"], name: "index_tasks_on_project_id"
+    t.index ["task_name", "project_id", "assignee_id"], name: "index_tasks_on_task_name_and_project_id_and_assignee_id", unique: true
   end
 
   create_table "team_users", force: :cascade do |t|
@@ -119,13 +119,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_29_145548) do
   end
 
   add_foreign_key "categories", "teams"
-  add_foreign_key "category_task_lists", "categories"
-  add_foreign_key "category_task_lists", "task_lists"
-  add_foreign_key "task_list_users", "task_lists"
-  add_foreign_key "task_list_users", "users"
-  add_foreign_key "task_lists", "teams"
-  add_foreign_key "task_lists", "users", column: "creator_id"
-  add_foreign_key "tasks", "task_lists"
+  add_foreign_key "category_projects", "categories"
+  add_foreign_key "category_projects", "projects"
+  add_foreign_key "project_users", "projects"
+  add_foreign_key "project_users", "users"
+  add_foreign_key "projects", "teams"
+  add_foreign_key "projects", "users", column: "creator_id"
+  add_foreign_key "tasks", "projects"
   add_foreign_key "tasks", "users", column: "assignee_id"
   add_foreign_key "team_users", "teams"
   add_foreign_key "team_users", "users"

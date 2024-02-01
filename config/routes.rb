@@ -7,5 +7,5 @@ Rails.application.routes.draw do
   get 'up' => 'rails/health#show', as: :rails_health_check
   get 'dashboard' => 'dashboards#index', as: :dashboard
   resources :teams
-  resources :task_lists
+  resources :projects
 end

@@ -2,10 +2,10 @@
 
 # == Schema Information
 #
-# Table name: task_lists
+# Table name: projects
 #
 #  id             :bigint           not null, primary key
-#  task_list_name :string           not null
+#  project_name :string           not null
 #  description    :text
 #  policy         :integer          default(0), not null
 #  progress       :integer          default(0), not null
@@ -16,7 +16,7 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #
-class TaskList < ApplicationRecord
+class Project < ApplicationRecord
   # @extends ..................................................................
   enum policy: { public: 0, protected: 1, private: 2 }, _prefix: true
   enum priority: { low: 0, medium: 1, high: 2 }, _prefix: true
@@ -26,15 +26,15 @@ class TaskList < ApplicationRecord
   # @relationships ............................................................
   belongs_to :team
   belongs_to :creator, class_name: :User, foreign_key: :creator_id
-  has_many :task_list_users
-  has_many :users, through: :task_list_users
+  has_many :project_users
+  has_many :users, through: :project_users
 
-  has_many :tasks, inverse_of: :task_list, dependent: :destroy
+  has_many :tasks, inverse_of: :project, dependent: :destroy
   accepts_nested_attributes_for :tasks, allow_destroy: true, reject_if: :all_blank
 
   # @validations ..............................................................
-  validates :task_list_name, :policy, :progress, :priority, :due_date, presence: true
-  validates :task_list_name, uniqueness: { scope: :creator_id }
+  validates :project_name, :policy, :progress, :priority, :due_date, presence: true
+  validates :project_name, uniqueness: { scope: :creator_id }
   validate :check_if_creator_is_in_team
 
   # @callbacks ................................................................
@@ -54,7 +54,7 @@ class TaskList < ApplicationRecord
 
   protected
 
-  # The `creator` of a task_list should always be in the team that the task_list
+  # The `creator` of a project should always be in the team that the project
   # belongs to.
   #
   # @return [Boolean]

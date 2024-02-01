@@ -1,9 +1,9 @@
 # == Schema Information
 #
-# Table name: task_lists
+# Table name: projects
 #
 #  id             :bigint           not null, primary key
-#  task_list_name :string           not null
+#  project_name :string           not null
 #  description    :text
 #  policy         :integer          default(0), not null
 #  progress       :integer          default(0), not null
@@ -17,8 +17,8 @@
 
 today:
   creator: lovelace
-  task_list_name: Today
-  description: We need to get these things done ASAP before I yet again create a new amazing masterpiece that is another task_list
+  project_name: Today
+  description: We need to get these things done ASAP before I yet again create a new amazing masterpiece that is another project
   team: sept
   policy: 1
   progress: 1
@@ -27,7 +27,7 @@ today:
 
 never:
   creator: a
-  task_list_name: Never
+  project_name: Never
   description: Everything that never should happen
   team: mizu
   policy: 0
