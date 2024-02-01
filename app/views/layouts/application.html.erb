@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class='h-screen box-border bg-zinc-200!important'>
   <head>
     <title>TꙨDꙨ</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -8,6 +8,8 @@
 
     <%= stylesheet_link_tag 'tailwind', 'inter-font', "data-turbo-track": 'reload' %>
     <%= stylesheet_link_tag 'application', "data-turbo-track": 'reload' %>
+    <%= stylesheet_link_tag  "https://cdn.jsdelivr.net/npm/daisyui@4.6.1/dist/full.min.css" %>
+
     <%= javascript_importmap_tags %>
     <%= hotwire_livereload_tags if Rails.env.development? %>
   </head>
@@ -27,8 +29,10 @@
       <div class="flex justify-between">
         <div>
           <!-- FIXME: this should be a turbo view_component -->
-          <p class="notice"><%= notice %></p>
-          <p class="alert"><%= alert %></p>
+          <% if notice || alert %>
+            <p class="notice"><%= notice %></p>
+            <p class="alert"><%= alert %></p>
+          <% end %>
         </div>
 
       </div>

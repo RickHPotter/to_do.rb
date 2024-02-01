@@ -5,6 +5,7 @@
 #  id                     :bigint           not null, primary key
 #  first_name             :string           not null
 #  last_name              :string           not null
+#  image_url              :string
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  reset_password_token   :string

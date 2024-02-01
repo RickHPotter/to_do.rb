@@ -4,17 +4,17 @@
 #
 # Table name: tasks
 #
-#  id           :bigint           not null, primary key
-#  task_name    :string           not null
-#  description  :text
-#  order        :integer          default(0), not null
-#  progress     :integer          default(0), not null
-#  priority     :integer          default(0), not null
-#  due_date     :date             default(Mon, 29 Jan 2024), not null
-#  project_id :bigint           not null
-#  assignee_id  :bigint
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id          :bigint           not null, primary key
+#  task_name   :string           not null
+#  description :text
+#  order       :integer          default(0), not null
+#  progress    :integer          default(0), not null
+#  priority    :integer          default("low"), not null
+#  due_date    :date             not null
+#  project_id  :bigint           not null
+#  assignee_id :bigint
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 class Task < ApplicationRecord
   # @extends ..................................................................

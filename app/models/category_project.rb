@@ -4,11 +4,11 @@
 #
 # Table name: category_projects
 #
-#  id           :bigint           not null, primary key
-#  category_id  :bigint           not null
-#  project_id :bigint           not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id          :bigint           not null, primary key
+#  category_id :bigint           not null
+#  project_id  :bigint           not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 class CategoryProject < ApplicationRecord
   # @extends ..................................................................
