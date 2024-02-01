@@ -26,9 +26,11 @@ class TaskList < ApplicationRecord
   # @relationships ............................................................
   belongs_to :team
   belongs_to :creator, class_name: :User, foreign_key: :creator_id
-  has_many :tasks
   has_many :task_list_users
   has_many :users, through: :task_list_users
+
+  has_many :tasks, inverse_of: :task_list, dependent: :destroy
+  accepts_nested_attributes_for :tasks, allow_destroy: true, reject_if: :all_blank
 
   # @validations ..............................................................
   validates :task_list_name, :policy, :progress, :priority, :due_date, presence: true

@@ -1,5 +1,5 @@
 <% if form %>
-  <%= form.submit options[:label], id: options[:id], class: form_button_class(options[:colour]) %>
+  <%= form.submit options[:label], id: options[:id], class: form_button_class(options[:colour]), data: options[:data] %>
 <% else %>
-  <%= link_to options[:label], link, class: form_button_class %>
+  <%= link_to options[:label], link, class: form_button_class(options[:colour]), data: options[:data] %>
 <% end %>

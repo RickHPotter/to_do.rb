@@ -1,0 +1,37 @@
+en:
+  activerecord:
+    models:
+      task:
+        one: Task
+        other: Task
+    attributes:
+      task:
+        id: ID
+        task_name: Task Name
+        description: Description
+        assignee: Assignee
+        assignee_id: Assignee
+        progress: Progress
+        priority: Priority
+        order: Order
+        created_at: Created at
+        updated_at: Updated at
+
+pt-BR:
+  activerecord:
+    models:
+      task:
+        one: Tarefa
+        other: Tarefas
+    attributes:
+      task:
+        id: ID
+        task_name: Nome da Tarefa
+        description: Descricão
+        assignee: Atribuído à
+        assignee_id: Atribuído à
+        progress: Progresso
+        priority: Prioridade
+        order: Ordem
+        created_at: Criado em
+        updated_at: Atualizado em

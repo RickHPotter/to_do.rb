@@ -41,7 +41,7 @@ class ButtonComponent < ViewComponent::Base
       label: options[:label] || 'Button Without A Name',
       colour: { colour: colours(options[:colour]) },
       type: 'button',
-      data: data_attributes(options[:data])
+      data: options[:data] || {}
     }
   end
 
@@ -52,7 +52,9 @@ class ButtonComponent < ViewComponent::Base
   def button_id
     return "#{link}_button" if link
 
-    "#{form.object.model_name.singular}_submit_button"
+    return "#{form.object.model_name.singular}_submit_button" if form
+
+    'idless_button'
   end
 
   # Sets the colour for the button based on the colour option.

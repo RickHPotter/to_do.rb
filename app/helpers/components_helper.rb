@@ -25,38 +25,6 @@ module ComponentsHelper
     text-sm font-medium #{options[:colour][:text]} shadow-sm #{options[:colour][:hover][:bg]}
     focus:outline-none focus:ring-2 #{options[:colour][:focus][:ring]} focus:ring-offset-2"
   end
-
-  # This method takes a variable number of hash arguments and converts them into
-  # HTML-safe data attributes. It adds the "data-" prefix to keys, replaces
-  # underscores with hyphens, and HTML-escapes the values to prevent potential
-  # security vulnerabilities related to cross-site scripting (XSS) attacks.
-  #
-  # @example Generate HTML-safe data attributes
-  #   options[:data] = { action: 'click->modal#close' }
-  #   data = data_attributes({ form_validate_target: 'field' }, options[:data])
-  #
-  #   `<div <%= data %>>`
-  #   produces
-  #   `<div data-form-validate-target="field" data-action="click->modal#close">`
-  #
-  # @param args [Hash] Variable number of hash arguments containing data attributes.
-  #
-  # @note The resulting String is to be used dynamically in HTML tags for rendering.
-  # @note The elements of latter args override elements of former args in case of repetition.
-  #
-  # @return [String] HTML_SAFE data attributes converted from hash
-  #
-  def data_attributes(*args)
-    args.compact!
-    return {} if args.empty?
-
-    args.flatten!
-    data = args.reduce({}, :update)
-
-    data&.map do |key, value|
-      "data-#{key.to_s.gsub('_', '-')}=\"#{value}\""
-    end&.join(' ')&.html_safe
-  end
 end
 
 # rubocop:enable Layout/LineLength
