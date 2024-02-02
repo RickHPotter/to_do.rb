@@ -75,7 +75,10 @@ class ButtonComponent < ViewComponent::Base
         hover: { bg: 'hover:bg-gray-500', text: 'hover:text-gray-50' } }
     when :red
       { text: 'text-white', bg: 'bg-red-600', border: 'border-black',
-        hover: { bg: 'hover:bg-gray-500', text: 'hover:text-gray-50' } }
+        hover: { bg: 'hover:bg-red-700', text: 'hover:text-gray-50' } }
+    when :indigo
+      { text: 'text-white', bg: 'bg-indigo-600', border: 'border-black',
+        hover: { bg: 'hover:bg-indigo-700', text: 'hover:text-gray-50' } }
     when :orange
       { text: 'text-white', bg: 'bg-orange-360', border: 'rounded-md',
         hover: { bg: 'hover:bg-red-700', text: '' } }

@@ -1,27 +1,5 @@
-<div class="mb-4 text-sm font-medium text-center text-gray-500 border-b border-gray-200" data-controller='tab'>
-  <ul class="flex flex-wrap -mb-px">
-    <li class="me-2">
-      <%= link_to new_team_path,
-                  class: 'active text-blue-600 inline-block p-4 border-b-2 rounded-t-lg border-blue-600',
-                  data: { 'turbo-frame': :container, tab_target: 'tab', action: 'tab#toggle' } do %>
-        <div class="flex">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 28" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-          </svg>
-          <span class="ml-2"> <%= action_model(:new, Team) %> </span>
-        </div>
-      <% end %>
-    </li>
-    <% @teams.each do |team| %>
-      <li class="me-2" data-tab-target='tab'>
-        <%= link_to team.team_name, team,
-                    class: 'inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-indigo-700 hover:border-indigo-700',
-                    data: { 'turbo-frame': :container, tab_target: 'tab', action: 'tab#toggle' } %>
-      </li>
-    <% end %>
-  </ul>
-</div>
+<%= render 'teams_tab', teams: @teams %>
 
 <div class="mx-auto w-full md:w-2/3">
-<%= turbo_frame_tag :container, src: 'teams/new' %>
+  <%= turbo_frame_tag :container, src: 'teams/new' %>
 </div>

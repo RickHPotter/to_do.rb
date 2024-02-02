@@ -12,20 +12,14 @@ class TeamsController < ApplicationController
 
   def new
     @team = Team.new
-    @team.team_users.build
   end
 
   def create
     @team = Team.new(team_params)
 
     respond_to do |format|
-      if @team.save
-        flash[:notice] = 'Team was successfully created.'
-        format.html { redirect_to team_path(@team) }
-        format.turbo_stream
-      else
-        format.html { render :new, status: :unprocessable_entity }
-      end
+      flash[:notice] = 'Team was successfully created.' if @team.save
+      format.turbo_stream
     end
   end
 
@@ -44,6 +38,7 @@ class TeamsController < ApplicationController
   def set_helpers
     @policies = Team.policies.keys
     @users = User.where.not(id: current_user.id).pluck(:first_name, :id)
+    @teams = current_user.teams
   end
 
   def team_params

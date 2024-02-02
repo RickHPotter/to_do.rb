@@ -22,7 +22,7 @@ two:
 
 three:
   team: sept
-  user: john_doe
+  user: a
   admin: false
 
 four:

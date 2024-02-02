@@ -13,10 +13,6 @@
 #  reset_password_token   :string
 #  reset_password_sent_at :datetime
 #  remember_created_at    :datetime
-#  confirmation_token     :string
-#  confirmed_at           :datetime
-#  confirmation_sent_at   :datetime
-#  unconfirmed_email      :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
@@ -53,7 +49,6 @@ class User < ApplicationRecord
   validates :first_name, :last_name, presence: true
 
   # @callbacks ................................................................
-  after_validation :create_default_team
   after_validation :random_image
 
   # @scopes ...................................................................
@@ -72,17 +67,6 @@ class User < ApplicationRecord
   # @protected_instance_methods ...............................................
 
   protected
-
-  # Creates built-in `categories` for given user.
-  #
-  # @return [void]
-  #
-  def create_default_team
-    team_users.push TeamUser.new(
-      team: Team.new(team_name: 'Default', creator: self, policy: :public),
-      admin: true
-    )
-  end
 
   # Hopefully temporary callback to assign a random image to the user
   #

@@ -28,6 +28,8 @@ class Team < ApplicationRecord
   validates :team_name, presence: true, uniqueness: { scope: :creator_id }
 
   # @callbacks ................................................................
+  after_create :add_creator_as_team_user
+
   # @scopes ...................................................................
   scope :by_user, ->(user) { joins(:team_users).where(team_users: { user: }) }
 
@@ -43,5 +45,14 @@ class Team < ApplicationRecord
   end
 
   # @protected_instance_methods ...............................................
+
+  protected
+
+  def add_creator_as_team_user
+    return if team_users.include?(user: creator)
+
+    team_users.create!(user: creator)
+  end
+
   # @private_instance_methods .................................................
 end

@@ -38,10 +38,8 @@ export default class extends Controller {
 
     progress.classList.remove(to_remove)
     if (active_step === steps_size) {
-      console.log(1)
       progress.classList.add(`w-full`)
     } else {
-      console.log(2)
       progress.classList.add(`w-${active_step}/${steps_size}`)
     }
   }
