@@ -27,20 +27,7 @@
     </div>
 
     <div class="flex space-x-12">
-    </div>
-
-    <!-- FIXME: DRY and move to ViewComponent -->
-    <div class="flex space-x-12">
-      <ul class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex">
-        <% %w[low medium high].each do |priority| %>
-          <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r">
-            <div class="flex items-center ps-3">
-              <%= form.radio_button :priority, priority, class: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 ring-offset-gray-700 focus:ring-offset-gray-700 focus:ring-2' %>
-              <%= form.label :priority, priority.capitalize, for: "project_priority_#{priority}", class: 'w-full py-3 ms-2 text-sm font-medium text-black' %>
-            </div>
-          </li>
-        <% end %>
-      </ul>
+      <%= render RadioButtonComponent.new(form:, field: :priority, items: @priorities) %>
     </div>
 
     <div class="py-6">
@@ -49,10 +36,10 @@
 
     <div class="flex space-x-12 justify-between">
       <div class="flex w-[200px] flex-col my-6">
-        <%= render ButtonComponent.new(link: projects_path, options: { label: 'Go Back', colour: :light }) %>
+        <%= render ButtonComponent.new(link: projects_path, options: { label: I18n.t('navigation.back'), colour: :light }) %>
       </div>
       <div class="flex w-[200px] flex-col my-6">
-        <%= render ButtonComponent.new(options: { label: 'Next', colour: :orange, data: { action: 'multi-step-form#next', to: '1' } }) %>
+        <%= render ButtonComponent.new(options: { label: I18n.t('navigation.next'), colour: :orange, data: { action: 'multi-step-form#next', to: '1' } }) %>
       </div>
     </div>
   </div>
@@ -71,14 +58,14 @@
     <!-- inserted elements -->
     <div data-nested-form-target='target'></div>
 
-    <%= render ButtonComponent.new(options: { label: 'Add Task', colour: :orange, data: { action: 'nested-form#add' } }) %>
+    <%= render ButtonComponent.new(options: { label: action_model(:newa, Task), colour: :orange, data: { action: 'nested-form#add' } }) %>
 
     <div class="flex space-x-12 justify-between">
       <div class="flex w-[200px] flex-col my-6">
-        <%= render ButtonComponent.new(options: { label: 'Previous', colour: :orange, data: { action: 'multi-step-form#previous', to: '0' } }) %>
+        <%= render ButtonComponent.new(options: { label: I18n.t('navigation.previous'), colour: :light, data: { action: 'multi-step-form#previous', to: '0' } }) %>
       </div>
       <div class="flex w-[200px] flex-col my-6">
-        <%= render ButtonComponent.new(form:, options: { label: 'Create Project', colour: :orange }) %>
+        <%= render ButtonComponent.new(form:, options: { label: action_model(:create, Project), colour: :orange }) %>
       </div>
     </div>
   </div>

@@ -53,10 +53,13 @@ module TranslateHelper
   #
   # @return [String] Human-readable attribute name based on the model and attribute.
   #
-  def attribute_model(model, attribute)
+  def attribute_model(model, attribute = nil, option: nil)
+    return I18n.t("activerecord.models.#{model.model_name.singular}.one") if attribute.blank?
+
     model = model.class if model.class.is_a?(Class)
     model = model.model_name.singular
-    I18n.t("activerecord.attributes.#{model}.#{attribute}")
+    option = "-#{option}" if option.present?
+    I18n.t("activerecord.attributes.#{model}.#{attribute}#{option}")
   end
 
   # This method dynamically generates a panel title based on the current controller
@@ -69,7 +72,7 @@ module TranslateHelper
   # @return [String] Panel title for the current controller action.
   #
   def panel_title
-    "#{I18n.t("gerund.#{action_name}")} #{controller_name.singularize.capitalize}"
+    "#{I18n.t("gerund.#{action_name}")} #{I18n.t("activerecord.models.#{controller_name.singularize}.one")} "
   end
 
   # This method dynamically generates a submit button label based on the current
@@ -83,5 +86,17 @@ module TranslateHelper
   #
   def submit
     I18n.t("actions.#{action_name}")
+  end
+
+  # This method dynamically generates an action model based on the current
+  # controller action and the singularised capitalised name of the model.
+  #
+  # @param action [String] Controller action.
+  # @param model [String] Model name.
+  #
+  # @return [String] Action model for the current controller action and model.
+  #
+  def action_model(action, model)
+    "#{I18n.t("actions.#{action}")} #{I18n.t("activerecord.models.#{model.model_name.singular}.one")}"
   end
 end

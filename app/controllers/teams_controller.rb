@@ -2,26 +2,25 @@
 
 class TeamsController < ApplicationController
   before_action :set_team, only: %i[show edit update destroy]
+  before_action :set_helpers, only: %i[new create edit update]
 
   def index
-    @teams = Team.by_user(current_user)
+    @teams = current_user.teams
   end
 
   def show; end
 
   def new
-    @team = Team.new(creator: current_user)
-    @policies = Team.policies.map { |k, _v| [k.capitalize, k] }
+    @team = Team.new
+    @team.team_users.build
   end
 
   def create
-    @team = Team.new(team_params.merge(creator: current_user))
+    @team = Team.new(team_params)
 
     respond_to do |format|
       if @team.save
         flash[:notice] = 'Team was successfully created.'
-        # FIXME: add admin to params so that this does not get hardcoded
-        TeamUser.create(team: @team, user: current_user, admin: false)
         format.html { redirect_to team_path(@team) }
         format.turbo_stream
       else
@@ -42,7 +41,15 @@ class TeamsController < ApplicationController
     @team = Team.includes(:creator).find(params[:id])
   end
 
+  def set_helpers
+    @policies = Team.policies.keys
+    @users = User.where.not(id: current_user.id).pluck(:first_name, :id)
+  end
+
   def team_params
-    params.require(:team).permit(:team_name, :description, :creator_id, :policy)
+    params.require(:team).permit(
+      :team_name, :description, :creator_id, :policy,
+      team_users_attributes: %i[id user_id admin _destroy]
+    )
   end
 end

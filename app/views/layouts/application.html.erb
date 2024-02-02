@@ -8,19 +8,17 @@
 
     <%= stylesheet_link_tag 'tailwind', 'inter-font', "data-turbo-track": 'reload' %>
     <%= stylesheet_link_tag 'application', "data-turbo-track": 'reload' %>
-
+ 
     <%= javascript_importmap_tags %>
     <%= hotwire_livereload_tags if Rails.env.development? %>
   </head>
 
   <body class='mx-auto max-w-7xl text-black antialiased'>
-    <%= render NavBarComponent.new logo: 'shared/logo',
-                                   items_left: [{ 'Dashboard' => dashboard_path, 'Teams' => teams_path }],
-                                   items_right: [{ 'Settings' => edit_user_registration_path, 'Logout' => destroy_user_session_path }] %>
+    <%= render 'shared/navbar' %>
 
-    <header class="bg-white shadow">
+    <header class="bg-white border-2 shadow">
       <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <h1 class="text-3xl font-bold tracking-tight text-gray-900"><%="#{controller_name.humanize} #{DateTime.now}" %></h1>
+        <h1 class="text-3xl font-bold tracking-tight text-gray-900"><%= panel_title %></h1>
       </div>
     </header>
 
@@ -29,9 +27,27 @@
         <%= render 'shared/flash' %>
       </div>
 
-      <section class="min-h-[calc(100vh-16rem)] rounded-lg bg-white shadow mx-auto p-5 mt-16">
+      <section class="min-h-[calc(100vh-16rem)] border-2 rounded-lg bg-white shadow mx-auto p-5 mt-16">
         <%= yield %>
       </section>
     </main>
   </body>
+
+
+
+<footer class="rounded-lg shadow mt-16 bg-purple-360">
+    <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+      <span class="text-sm text-white sm:text-center">
+        © 2024
+        <a href="https://github.com/RickHPotter" target='_blank' class="hover:underline">Sept MIZU™</a>.
+        All Rights Reserved.
+    </span>
+    <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-white sm:mt-0">
+        <li> <a href="https://github.com/RickHPotter" target='_blank' class="hover:underline me-4 md:me-6">About</a> </li>
+        <li> <a href="https://github.com/RickHPotter" target='_blank' class="hover:underline me-4 md:me-6">Privacy Policy</a> </li>
+        <li> <a href="https://github.com/RickHPotter" target='_blank' class="hover:underline me-4 md:me-6">Licensing</a> </li>
+        <li> <a href="https://github.com/RickHPotter" target='_blank' class="hover:underline">Contact</a> </li>
+    </ul>
+    </div>
+</footer>
 </html>

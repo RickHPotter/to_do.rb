@@ -3,6 +3,7 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
   before_action :set_teams, only: %i[new create edit update]
+  before_action :set_helpers, only: %i[new create edit update]
 
   def index
     @projects = Project.all
@@ -12,7 +13,6 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
-    # @project.tasks.build
   end
 
   def edit; end
@@ -60,6 +60,10 @@ class ProjectsController < ApplicationController
 
   def set_teams
     @teams = current_user.teams.pluck(:team_name, :id)
+  end
+
+  def set_helpers
+    @priorities = Project.priorities.keys
   end
 
   def project_params

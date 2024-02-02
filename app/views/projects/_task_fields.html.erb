@@ -29,21 +29,11 @@
     </div>
   </div>
 
-  <!-- FIXME: DRY and move to ViewComponent -->
   <div class="flex space-x-12">
-    <ul class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex">
-      <% %w[low medium high].each do |priority| %>
-        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r">
-          <div class="flex items-center ps-3">
-            <%= form.radio_button :priority, priority, id: "task_priority_#{priority}", class: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 ring-offset-gray-700 focus:ring-offset-gray-700 focus:ring-2' %>
-            <%= form.label :priority, priority.capitalize, for: "task_priority_#{priority}", class: 'w-full py-3 ms-2 text-sm font-medium text-black' %>
-          </div>
-        </li>
-      <% end %>
-    </ul>
+    <%= render RadioButtonComponent.new(form:, field: :priority, items: @priorities) %>
   </div>
 
   <%= render TextFieldComponent.new(form:, field: :due_date, options: { type: :date }) %>
 
-  <%= render ButtonComponent.new(options: { label: 'Remove Task', colour: :orange, data: { action: 'nested-form#remove' } }) %>
+  <%= render ButtonComponent.new(options: { label: action_model(:destroy, Task), colour: :red, data: { action: 'nested-form#remove' } }) %>
 </div>

@@ -11,6 +11,9 @@ en:
         description: Description
         creator: Creator
         policy: Policy
+        policy-public: Public
+        policy-protected: Protected
+        policy-private: Private
         created_at: Created at
         updated_at: Updated at
 
@@ -27,5 +30,8 @@ pt-BR:
         description: Descrição
         creator: Criador
         policy: Política
+        policy-public: Pública
+        policy-protected: Protegida
+        policy-private: Privada
         created_at: Criado em
         updated_at: Atualizado em

@@ -13,8 +13,14 @@ en:
         team: Team
         creator: Creator
         policy: Policy
+        policy-public: Public
+        policy-protected: Protected
+        policy-private: Private
         progress: Progress
         priority: Priority
+        priority-low: Low Priority
+        priority-medium: Medium Priority
+        priority-high: High Priority
         order: Order
         due_date: Deadline
         created_at: Created at
@@ -24,19 +30,25 @@ pt-BR:
   activerecord:
     models:
       project:
-        one: Lista de Tarefas
-        other: Lista de Tarefas
+        one: Projeto
+        other: Projetos
     attributes:
       project:
         id: ID
-        project_name: Nome da Lista de Tarefas
+        project_name: Nome do Projeto
         description: Descricão
         team_id: Time
         team: Time
         creator: Criador
         policy: Política
+        policy-public: Pública
+        policy-protected: Protegida
+        policy-private: Privada
         progress: Progresso
         priority: Prioridade
+        priority-low: Prioridade Baixa
+        priority-medium: Prioridade Média
+        priority-high: Prioridade Alta
         order: Ordem
         due_date: Prazo
         created_at: Criado em

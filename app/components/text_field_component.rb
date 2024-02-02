@@ -14,6 +14,7 @@ class TextFieldComponent < ViewComponent::Base
   #
   # @param form [ActionView::Helpers::FormBuilder] The form builder object.
   # @param field [Symbol] The attribute name for the text field.
+  # @param items [Array] The list of items for the select field.
   # @param options [Hash] Additional options for customizing the text field.
   #
   # @option options [String] :id The HTML ID attribute for the text field.

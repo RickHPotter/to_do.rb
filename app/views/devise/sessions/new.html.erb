@@ -1,9 +1,9 @@
 <% content_for(:auth_header) do %>
-  <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Sign in</h2>
+  <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900"><%= t('devise.shared.links.sign_in') %></h2>
   <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
     <p class="mt-2 text-center text-sm text-gray-600">
-      Or
-      <%= link_to 'create your account for FREE', new_registration_path(resource_name), class: 'font-medium text-indigo-600 hover:text-indigo-500' %>
+      <%= t('or') %>
+      <%= link_to t('create_free_account'), new_registration_path(resource_name), class: 'font-medium text-indigo-600 hover:text-indigo-500' %>
     </p>
   <% end %>
 <% end %>
@@ -29,12 +29,12 @@
 
     <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
       <div class="text-sm">
-        <%= link_to 'Forgot your password?', new_password_path(resource_name), class: 'font-medium text-indigo-600 hover:text-indigo-500' %>
+        <%= link_to I18n.t('devise.shared.links.forgot_your_password'), new_password_path(resource_name), class: 'font-medium text-indigo-600 hover:text-indigo-500' %>
       </div>
     <% end %>
   </div>
 
   <div>
-    <%= render ButtonComponent.new(form: f, options: { label: 'Log in' }) %>
+    <%= render ButtonComponent.new(form: f, options: { label: I18n.t('sign_in') }) %>
   </div>
 <% end %>

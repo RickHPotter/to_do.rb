@@ -7,7 +7,8 @@ module.exports = {
     './app/javascript/**/*.js',
     './app/components/**/*.rb',
     './app/components/**/*.html.erb',
-    './app/views/**/*.{erb,haml,html,slim}'
+    './app/views/**/*.{erb,haml,html,slim}',
+    './node_modules/flowbite/**/*.js'
   ],
   theme: {
     extend: {
@@ -25,9 +26,6 @@ module.exports = {
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/typography'),
     require('@tailwindcss/container-queries'),
-    require('daisyui')
+    require('flowbite/plugin')
   ],
-  daisyui: {
-    themes: ['cupcake'],
-  }
 }

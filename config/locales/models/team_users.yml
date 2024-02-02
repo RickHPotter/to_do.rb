@@ -1,0 +1,31 @@
+en:
+  activerecord:
+    models:
+      team_user:
+        one: Member
+        other: Members
+    attributes:
+      team_user:
+        id: ID
+        team: Team
+        team_id: Team
+        user: User
+        user_id: User
+        created_at: Created at
+        updated_at: Updated at
+
+pt-BR:
+  activerecord:
+    models:
+      team_user:
+        one: Membro
+        other: Membros
+    attributes:
+      team_user:
+        id: ID
+        team: Time
+        team_id: Time
+        user: Usuário
+        user_id: Usuário
+        created_at: Criado em
+        updated_at: Atualizado em
