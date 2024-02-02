@@ -22,8 +22,8 @@
 #
 class User < ApplicationRecord
   # @extends ..................................................................
-  devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :validatable, password_length: 6..22
+  devise :database_authenticatable, :registerable, :recoverable,
+         :rememberable, :validatable, password_length: 6..22
 
   # @includes .................................................................
   IMAGES = [
@@ -53,7 +53,6 @@ class User < ApplicationRecord
   validates :first_name, :last_name, presence: true
 
   # @callbacks ................................................................
-  after_validation :confirm_user
   after_validation :create_default_team
   after_validation :random_image
 
@@ -73,12 +72,6 @@ class User < ApplicationRecord
   # @protected_instance_methods ...............................................
 
   protected
-
-  # This is temporary
-  # TODO: either put up a mail server or take down :confirmable
-  def confirm_user
-    self.confirmed_at = Date.current
-  end
 
   # Creates built-in `categories` for given user.
   #

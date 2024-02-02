@@ -25,11 +25,11 @@
     </header>
 
     <main>
-      <div class="h-16 flex justify-center items-center">
+      <div class="absolute top-0 right-0">
         <%= render 'shared/flash' %>
       </div>
 
-      <section class="min-h-[calc(100vh-16rem)] rounded-lg bg-white shadow mx-auto p-5">
+      <section class="min-h-[calc(100vh-16rem)] rounded-lg bg-white shadow mx-auto p-5 mt-16">
         <%= yield %>
       </section>
     </main>

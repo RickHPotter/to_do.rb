@@ -69,10 +69,13 @@ class ButtonComponent < ViewComponent::Base
     case colour
     when nil, :purple
       { text: 'text-white', bg: 'bg-purple-360', border: 'border-orange-360',
-        hover: { bg: 'hover:bg-indigo-900' }, focus: { ring: 'focus:ring-black' } }
+        hover: { bg: 'hover:bg-indigo-900', text: '' }, focus: { ring: 'focus:ring-black' } }
+    when :light
+      { text: 'text-black', bg: 'bg-gray-300', border: 'border-black',
+        hover: { bg: 'hover:bg-gray-500', text: 'hover:text-gray-50' }, focus: { ring: 'focus:ring-black' } }
     when :orange
       { text: 'text-white', bg: 'bg-orange-360', border: 'rounded-md',
-        hover: { bg: 'hover:bg-red-600' }, focus: { ring: 'focus:ring-black' } }
+        hover: { bg: 'hover:bg-red-700', text: '' }, focus: { ring: 'focus:ring-black' } }
     end
   end
 end

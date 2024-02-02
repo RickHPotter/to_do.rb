@@ -1,6 +1,6 @@
 <div class="nested-form-wrapper" data-new-record="<%= form.object.new_record? %>">
   <div class="flex space-x-12">
-      <div class="flex w-[200px] flex-col my-5">
+    <div class="flex w-[200px] flex-col my-5">
       <%= render TextFieldComponent.new(form:, field: :assignee_id) %>
     </div>
 
@@ -10,7 +10,7 @@
   </div>
 
   <div class="flex flex-col pt-5 pb-12">
-    <%= render TextFieldComponent.new(form:, field: :description, options: { type: :textarea }) %>
+    <%= render TextFieldComponent.new(form:, field: :description, options: { type: :textarea, data: { controller: 'textarea-autogrow' } }) %>
   </div>
 
   <!-- FIXME: DRY and move to ViewComponent -->
@@ -20,13 +20,13 @@
                         class: 'range range-error',
                         min: 0, max: 100, step: 25, value: 25,
                         data: { action: 'range#update' } %>
-                      <div class="w-full flex justify-between text-xs px-2">
-                        <span>Didn't start</span>
-                        <span>Just started</span>
-                        <span>Halfway there</span>
-                        <span>Almost finished</span>
-                        <span>Done!</span>
-                      </div>
+    <div class="w-full flex justify-between text-xs px-2">
+      <span>Didn't start</span>
+      <span>Just started</span>
+      <span>Halfway there</span>
+      <span>Almost finished</span>
+      <span>Done!</span>
+    </div>
   </div>
 
   <!-- FIXME: DRY and move to ViewComponent -->
@@ -44,7 +44,6 @@
   </div>
 
   <%= render TextFieldComponent.new(form:, field: :due_date, options: { type: :date }) %>
-
 
   <%= render ButtonComponent.new(options: { label: 'Remove Task', colour: :orange, data: { action: 'nested-form#remove' } }) %>
 </div>

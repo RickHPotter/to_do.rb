@@ -1,25 +1,18 @@
-<!-- FIXME: this should be a ViewComponent -->
-<div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+<div class="mb-4 text-sm font-medium text-center text-gray-500 border-b border-gray-200" data-controller='tab'>
   <ul class="flex flex-wrap -mb-px">
     <li class="me-2">
       <%= link_to '+ New Team', new_team_path,
-                  class: 'inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300',
-                  data: { 'turbo-frame': :container } %>
+                  class: 'inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-indigo-700 hover:border-indigo-700',
+                  data: { 'turbo-frame': :container, tab_target: 'tab', action: 'tab#toggle' } %>
     </li>
     <% @teams.each do |team| %>
-      <li class="me-2">
+      <li class="me-2" data-tab-target='tab'>
         <%= link_to team.team_name, team,
-                    class: 'inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300',
-                    data: { 'turbo-frame': :container } %>
+                    class: 'inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-indigo-700 hover:border-indigo-700',
+                    data: { 'turbo-frame': :container, tab_target: 'tab', action: 'tab#toggle' } %>
       </li>
     <% end %>
-    <!-- FIXME: add stimulus to manage active
-    <li class="me-2">
-        <a href="#" class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500" aria-current="page">Dashboard</a>
-    </li>
-    -->
   </ul>
 </div>
-<!-- FIXME: this should be a ViewComponent -->
 
 <%= turbo_frame_tag :container, src: 'teams/new' %>

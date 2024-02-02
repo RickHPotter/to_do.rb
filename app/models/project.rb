@@ -40,6 +40,7 @@ class Project < ApplicationRecord
   # @callbacks ................................................................
   before_validation :set_policy
   before_validation :set_progress
+  after_validation :set_members, unless: :policy_private?
 
   # @scopes ...................................................................
   # @additional_config ........................................................
@@ -86,6 +87,20 @@ class Project < ApplicationRecord
     return self.progress = 100 if tasks.empty?
 
     self.progress = tasks.sum(:progress) / tasks.size
+  end
+
+  # Sets `members` to the team members.
+  #
+  # @return [void]
+  #
+  def set_members
+    return if errors.any?
+
+    team.members.each do |user|
+      next if project_users.map(&:user_id)&.include?(user.id)
+
+      project_users.push ProjectUser.new(project: self, user:)
+    end
   end
 
   # @private_instance_methods .................................................

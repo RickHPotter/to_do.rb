@@ -11,11 +11,10 @@ class TeamsController < ApplicationController
 
   def new
     @team = Team.new(creator: current_user)
-    @policies = Team.policies.invert.to_a
+    @policies = Team.policies.map { |k, _v| [k.capitalize, k] }
   end
 
   def create
-    team_params[:policy] = Team.policies.invert[team_params[:policy]]
     @team = Team.new(team_params.merge(creator: current_user))
 
     respond_to do |format|
@@ -26,7 +25,7 @@ class TeamsController < ApplicationController
         format.html { redirect_to team_path(@team) }
         format.turbo_stream
       else
-        format.html { render teams_path, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_entity }
       end
     end
   end

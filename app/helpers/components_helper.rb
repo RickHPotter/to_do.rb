@@ -20,8 +20,8 @@ module ComponentsHelper
   #
   def form_button_class(options)
     "flex w-full py-2 px-4 justify-center transition duration-500 hover:scale-105 rounded-md border
-    #{options[:colour][:border]} #{options[:colour][:bg]}
-    text-sm font-medium #{options[:colour][:text]} shadow-sm #{options[:colour][:hover][:bg]}
+    #{options[:colour][:border]} #{options[:colour][:bg]} text-sm font-medium #{options[:colour][:text]}
+    shadow-sm #{options[:colour][:hover][:bg]} #{options[:colour][:hover][:text]}
     focus:outline-none focus:ring-2 #{options[:colour][:focus][:ring]} focus:ring-offset-2"
   end
 end

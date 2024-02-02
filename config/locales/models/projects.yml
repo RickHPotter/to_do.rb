@@ -38,6 +38,6 @@ pt-BR:
         progress: Progresso
         priority: Prioridade
         order: Ordem
-        due_date: Data de Entrega
+        due_date: Prazo
         created_at: Criado em
         updated_at: Atualizado em

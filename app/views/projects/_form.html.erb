@@ -1,59 +1,86 @@
-<%= form_with(
-      model: @project,
-      class: 'contents',
-      data: { controller: 'nested-form form-validate', nested_form_wrapper_selector_value: '.nested-form-wrapper' }
-    ) do |form| %>
+<% data = { controller: 'multi-step-form nested-form form-validate', nested_form_wrapper_selector_value: '.nested-form-wrapper' } %>
+<%= form_with(model: @project, class: 'contents', data:) do |form| %>
+
+  <div class='mt-5 mb-9'>
+    <div class="flex-start flex h-3.5 w-full overflow-hidden rounded-full border border-gray-900/10 bg-gray-900/5 p-1 font-sans text-xs font-medium">
+      <div class="flex items-center justify-center w-1/2 h-full overflow-hidden text-white break-all bg-orange-360 rounded-full"
+           data-multi-step-form-target='progress'>
+      </div>
+    </div>
+  </div>
 
   <%= render 'shared/errors', object: @project %>
 
-  <div class="flex flex-col my-5">
-    <%= render TextFieldComponent.new(form:, field: :project_name, options: { autofocus: true }) %>
+  <div data-multi-step-form-target='step' data-step='0'>
+    <div class="flex flex-col my-6">
+      <%= render TextFieldComponent.new(form:, field: :project_name, options: { autofocus: true }) %>
+    </div>
+
+    <div class="flex flex-col my-6">
+      <%= render TextFieldComponent.new(form:, field: :description, options: { type: :textarea, data: { controller: 'textarea-autogrow' } }) %>
+    </div>
+
+    <%= form.hidden_field :creator_id, value: current_user.id %>
+
+    <div class="flex flex-col my-6">
+      <%= render TextFieldComponent.new(form:, field: :team_id, items: @teams, options: { type: :select }) %>
+    </div>
+
+    <div class="flex space-x-12">
+    </div>
+
+    <!-- FIXME: DRY and move to ViewComponent -->
+    <div class="flex space-x-12">
+      <ul class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex">
+        <% %w[low medium high].each do |priority| %>
+          <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r">
+            <div class="flex items-center ps-3">
+              <%= form.radio_button :priority, priority, class: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 ring-offset-gray-700 focus:ring-offset-gray-700 focus:ring-2' %>
+              <%= form.label :priority, priority.capitalize, for: "project_priority_#{priority}", class: 'w-full py-3 ms-2 text-sm font-medium text-black' %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="py-6">
+      <%= render TextFieldComponent.new(form:, field: :due_date, options: { type: :date }) %>
+    </div>
+
+    <div class="flex space-x-12 justify-between">
+      <div class="flex w-[200px] flex-col my-6">
+        <%= render ButtonComponent.new(link: projects_path, options: { label: 'Go Back', colour: :light }) %>
+      </div>
+      <div class="flex w-[200px] flex-col my-6">
+        <%= render ButtonComponent.new(options: { label: 'Next', colour: :orange, data: { action: 'multi-step-form#next', to: '1' } }) %>
+      </div>
+    </div>
   </div>
 
-  <div class="flex flex-col pt-5 pb-12">
-    <%= render TextFieldComponent.new(form:, field: :description, options: { type: :textarea }) %>
-  </div>
-
-  <%= form.hidden_field :creator_id, value: current_user.id %>
-
-  <div class="flex flex-col pt-5 pb-12">
-    <%= render TextFieldComponent.new(form:, field: :team_id, items: @teams, options: { type: :select }) %>
-  </div>
-
-  <!-- FIXME: DRY and move to ViewComponent -->
-  <div class="flex space-x-12">
-    <ul class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex">
-      <% %w[low medium high].each do |priority| %>
-        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r">
-          <div class="flex items-center ps-3">
-            <%= form.radio_button :priority, priority, class: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 ring-offset-gray-700 focus:ring-offset-gray-700 focus:ring-2' %>
-            <%= form.label :priority, priority.capitalize, for: "project_priority_#{priority}", class: 'w-full py-3 ms-2 text-sm font-medium text-black' %>
-          </div>
-        </li>
+  <div data-multi-step-form-target='step' data-step='1'>
+    <template data-nested-form-target="template">
+      <%= form.fields_for :tasks, Task.new, child_index: 'NEW_RECORD' do |task_fields| %>
+        <%= render 'task_fields', form: task_fields %>
       <% end %>
-    </ul>
-  </div>
+    </template>
 
-  <div class="py-6">
-    <%= render TextFieldComponent.new(form:, field: :due_date, options: { type: :date }) %>
-  </div>
-
-  <template data-nested-form-target="template">
-    <%= form.fields_for :tasks, Task.new, child_index: 'NEW_RECORD' do |task_fields| %>
+    <%= form.fields_for :tasks do |task_fields| %>
       <%= render 'task_fields', form: task_fields %>
     <% end %>
-  </template>
 
-  <%= form.fields_for :tasks do |task_fields| %>
-    <%= render 'task_fields', form: task_fields %>
-  <% end %>
+    <!-- inserted elements -->
+    <div data-nested-form-target='target'></div>
 
-  <!-- inserted elements -->
-  <div data-nested-form-target='target'></div>
+    <%= render ButtonComponent.new(options: { label: 'Add Task', colour: :orange, data: { action: 'nested-form#add' } }) %>
 
-  <%= render ButtonComponent.new(options: { label: 'Add Task', colour: :orange, data: { action: 'nested-form#add' } }) %>
-
-  <div class="inline">
-    <%= render ButtonComponent.new(form:, options: { label: 'Create Project', colour: :orange }) %>
+    <div class="flex space-x-12 justify-between">
+      <div class="flex w-[200px] flex-col my-6">
+        <%= render ButtonComponent.new(options: { label: 'Previous', colour: :orange, data: { action: 'multi-step-form#previous', to: '0' } }) %>
+      </div>
+      <div class="flex w-[200px] flex-col my-6">
+        <%= render ButtonComponent.new(form:, options: { label: 'Create Project', colour: :orange }) %>
+      </div>
+    </div>
   </div>
+
 <% end %>
