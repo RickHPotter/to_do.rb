@@ -56,7 +56,6 @@ module TranslateHelper
   def attribute_model(model, attribute = nil, option: nil)
     return I18n.t("activerecord.models.#{model.model_name.singular}.one") if attribute.blank?
 
-    model = model.class if model.class.is_a?(Class)
     model = model.model_name.singular
     option = "-#{option}" if option.present?
     I18n.t("activerecord.attributes.#{model}.#{attribute}#{option}")

@@ -1,5 +1,7 @@
+<!-- FIXME: a way to test this is to try and edit a team from the show action. -->
+<% team ||= @team %>
 <%= turbo_frame_tag :container do %>
-  <% form_with(model: team, id: 'form', class: 'contents text-black', data: { controller: 'nested-form form-validate' }) do |form| %>
+  <%= form_with(model: team, id: 'form', class: 'contents text-black', data: { controller: 'nested-form form-validate' }) do |form| %>
     <%= render 'shared/errors', object: team %>
 
     <%= form.hidden_field :creator_id, value: current_user.id %>

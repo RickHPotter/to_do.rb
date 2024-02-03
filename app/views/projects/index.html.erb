@@ -1,14 +1,10 @@
-<div class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-  <% end %>
-
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Projects</h1>
-    <%= link_to 'New project', new_project_path, class: 'rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium' %>
+<div class='w-full'>
+  <div class='flex justify-between'>
+    <%= link_to action_model(:new, @projects), new_project_path, class: 'rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium' %>
+    <%= link_to action_model(:search, @projects), new_project_path, class: 'rounded-lg py-3 px-5 bg-gray-700 text-white block font-medium' %>
   </div>
 
-  <div id="projects" class="min-w-full">
+  <div id='projects' class='min-w-full py-4'>
     <%= render @projects %>
   </div>
 </div>

@@ -11,7 +11,7 @@
           <%= form.check_box :admin, class: 'hidden peer', onclick: "this.checked ? this.parentElement.querySelector('[data-target-text]').innerText = 'Admin' : this.parentElement.querySelector('[data-target-text]').innerText = 'Member'" %>
           <%= form.label :admin, class: 'inline-flex items-center justify-center w-full p5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer peer-checked:border-orange-360 hover:text-gray-600 peer-checked:text-gray-600 hover:bg-gray-50' do %>
             <div class="flex gap-2 my-1">
-              <div class="w-full text-lg italic text-black" data-target-text=''>Member</div>
+              <div class="w-full text-lg italic text-black" data-target-text=''><%= form.object.role %></div>
             </div>
           <% end %>
         </li>

@@ -2,17 +2,22 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="range"
 export default class extends Controller {
-  connect() { }
+  static targets = ['input']
+
+  connect() { this.update_colour(this.inputTarget) }
 
   update(event) {
-    const value = event.target.value
-    const target = event.target
-    const step = value / 25
-    const colours = ['range-error', 'range-warning', 'range-info', 'range-success']
+    this.update_colour(event.target)
+  }
 
-    target.classList.remove(...colours)
+  update_colour(element) {
+    const value = element.value
+    const step = value / 25
+    const colours = ['bg-red-700', 'bg-yellow-400', 'bg-indigo-600', 'bg-green-500']
+
+    element.classList.remove(...colours)
     if (step > 0) {
-      target.classList.add(colours[step - 1])
+      element.classList.add(colours[step - 1])
     }
   }
 }

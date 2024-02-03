@@ -49,6 +49,7 @@ class Task < ApplicationRecord
   #
   def check_if_assignee_is_in_project
     return if errors.any?
+    return if assignee_id.nil?
     return if project.members.include?(assignee)
 
     errors.add(:assignee, 'is not in the project')

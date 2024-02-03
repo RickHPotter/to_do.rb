@@ -1,4 +1,11 @@
 en:
+  notification:
+    created: "%{model} was successfully created."
+    not_created: "%{model} was not created."
+    updated: "%{model} was successfully updated."
+    not_updated: "%{model} was not updated."
+    destroyed: "%{model} was successfully destroyed."
+    not_destroyed: "%{model} was not destroyed."
   gerund:
     index: "Listing"
     show: "Details of"
@@ -6,6 +13,7 @@ en:
     edit: "Editing"
   actions:
     index: "List"
+    search: "Search"
     show: "Show"
     new: "New"
     create: "Create"
@@ -16,6 +24,8 @@ en:
     previous: "Previous"
     next: "Next"
     back: "Go Back"
+  attention: "Attention"
+  actions_column: "Actions"
   sign_in: "Sign in"
   sign_up: "Sign up"
   sign_out: "Sign out"
@@ -26,6 +36,13 @@ en:
   or: "Or"
 
 pt-BR:
+  notification:
+    created: "%{model} foi criado com sucesso."
+    not_created: "%{model} não foi criado."
+    updated: "%{model} foi atualizado com sucesso."
+    not_updated: "%{model} não foi atualizado."
+    destroyed: "%{model} foi excluído com sucesso."
+    not_destroyed: "%{model} não foi excluído."
   gerund:
     index: "Listando"
     show: "Detalhes de"
@@ -34,6 +51,7 @@ pt-BR:
     destroy: "Deletando"
   actions:
     index: "Listar"
+    search: "Pesquisar"
     show: "Mostrar"
     new: "Novo"
     newa: "Nova"
@@ -45,6 +63,8 @@ pt-BR:
     previous: "Anterior"
     next: "Próximo"
     back: "Voltar"
+  attention: "Atenção"
+  actions_column: "Ações"
   sign_in: "Login"
   sign_up: "Cadastrar"
   sign_out: "Sair"

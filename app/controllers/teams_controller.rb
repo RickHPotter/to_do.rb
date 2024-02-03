@@ -17,15 +17,26 @@ class TeamsController < ApplicationController
   def create
     @team = Team.new(team_params)
 
-    respond_to do |format|
-      flash[:notice] = 'Team was successfully created.' if @team.save
-      format.turbo_stream
+    if @team.save
+      flash[:notice] = t('notification.created', model: t('activerecord.models.team.one'))
+    else
+      flash[:alert] = t('notification.not_created', model: t('activerecord.models.team.one'))
     end
+
+    respond_to(&:turbo_stream)
   end
 
   def edit; end
 
-  def update; end
+  def update
+    if @team.save
+      flash[:notice] = t('notification.updated', model: 'Team')
+    else
+      flash[:alert] = t('notification.not_updated', model: 'Team')
+    end
+
+    respond_to(&:turbo_stream)
+  end
 
   def destroy; end
 

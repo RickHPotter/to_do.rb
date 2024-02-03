@@ -1,0 +1,48 @@
+<th>
+  <%= form.text_field :_destroy, class: 'hidden', data: { action: 'change->autosave#save nested-form#remove' } %>
+  <div class="pl-1">
+
+    <%= form.select :assignee_id, project.users.pluck(:first_name, :id), {},
+                    class: 'border-0 focus:border-0 bg-gray-100 focus:ring-0 focus:outline-none text-sm font-medium text-gray-900',
+                    data: { action: 'change->autosave#save' } %>
+  </div>
+</th>
+<th>
+  <div class="ps-3">
+    <%= form.text_field :task_name,
+                        class: 'border-0 focus:border-0 bg-gray-100 focus:ring-0 focus:outline-none text-sm font-medium text-gray-900',
+                        data: { action: 'keyup->autosave#save' } %>
+  </div>
+</th>
+<th>
+  <div class="ps-3">
+    <%= form.text_field :description,
+                        class: 'border-0 focus:border-0 bg-gray-100 focus:ring-0 focus:outline-none text-sm font-medium text-gray-900',
+                        data: { action: 'keyup->autosave#save' } %>
+  </div>
+</th>
+<th>
+  <div class="ps-3">
+    <%= form.select :priority, @priorities.map { |p| [attribute_model(Task, :priority, option: p), p] }, {},
+                    class: 'border-0 focus:border-0 bg-gray-100 focus:ring-0 focus:outline-none text-sm font-medium text-gray-900',
+                    data: { action: 'change->autosave#save' } %>
+  </div>
+</th>
+<th>
+  <div class='ps-3' data-controller='range'>
+    <%= form.text_field :progress, type: :range,
+                                   min: 0, max: 100, step: 25,
+                                   class: 'w-full h-2 bg-gray-100 rounded-lg appearance-none cursor-pointer',
+                                   data: { action: 'change->autosave#save range#update', range_target: 'input' } %>
+  </div>
+</th>
+<th>
+  <div class="ps-3">
+    <%= form.date_field :due_date,
+                        class: 'border-0 focus:border-0 bg-gray-100 focus:ring-0 focus:outline-none text-sm font-medium text-gray-900',
+                        data: { action: 'change->autosave#save' } %>
+  </div>
+</th>
+<th class="my-1 min-h-2">
+  <%= render ButtonComponent.new(options: { label: action_model(:destroy, Task), colour: :red, data: { action: 'autosave#submit_destroy ' } }) %>
+</th>

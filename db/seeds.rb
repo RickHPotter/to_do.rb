@@ -50,7 +50,7 @@ Team.where.not(team_name: 'Default').each do |team|
   end
 
   3.times.each do |i|
-    Project.create(
+    project = Project.create(
       project_name: "Project #{i}",
       policy: :public,
       progress: 0,
@@ -58,6 +58,15 @@ Team.where.not(team_name: 'Default').each do |team|
       team_id: team.id,
       creator_id: team.members.sample.id,
       due_date: Date.today
+    )
+
+    project.tasks << Task.create(
+      task_name: "Task #{i}",
+      description: 'A realy good description.',
+      order: 0,
+      progress: 0,
+      priority: :low,
+      due_date: Date.tomorrow
     )
   end
 end

@@ -1,7 +1,7 @@
 <div class="nested-form-wrapper" data-new-record="<%= form.object.new_record? %>">
   <div class="flex space-x-12">
     <div class="flex w-[200px] flex-col my-5">
-      <%= render TextFieldComponent.new(form:, field: :assignee_id) %>
+      <%= render TextFieldComponent.new(form:, field: :assignee_id, items: @users, options: { type: :select }) %>
     </div>
 
       <div class="flex w-full flex-col my-5">
@@ -9,23 +9,24 @@
     </div>
   </div>
 
-  <div class="flex flex-col pt-5 pb-12">
+  <div class="flex flex-col py-5">
     <%= render TextFieldComponent.new(form:, field: :description, options: { type: :textarea, data: { controller: 'textarea-autogrow' } }) %>
   </div>
 
-  <!-- FIXME: DRY and move to ViewComponent -->
-  <div data-controller='range'>
+  <!-- TODO: DRY and move to ViewComponent -->
+  <div class="flex flex-col py-5" data-controller='range'>
     <%= form.text_field :progress,
                         type: :range,
-                        class: 'range range-error',
+                        class: 'w-full h-2 rounded-lg appearance-none cursor-pointer',
                         min: 0, max: 100, step: 25, value: 25,
-                        data: { action: 'range#update' } %>
-    <div class="w-full flex justify-between text-xs px-2">
-      <span>Didn't start</span>
-      <span>Just started</span>
-      <span>Halfway there</span>
-      <span>Almost finished</span>
-      <span>Done!</span>
+                        data: { action: 'range#update', range_target: 'input' } %>
+
+    <div class="w-full flex justify-between text-xs p-2">
+      <span class='text-gray-500 dark:text-gray-400'>Didn't start</span>
+      <span class='text-gray-500 dark:text-gray-400'>Just started</span>
+      <span class='text-gray-500 dark:text-gray-400'>Halfway there</span>
+      <span class='text-gray-500 dark:text-gray-400'>Almost finished</span>
+      <span class='text-gray-500 dark:text-gray-400'>Done!</span>
     </div>
   </div>
 
