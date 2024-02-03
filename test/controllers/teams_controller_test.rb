@@ -32,8 +32,9 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
 
     sign_in @user
 
-    team = { team_name: 'My Beloved Team', description: 'My lovely team', policy: :public }
-    post teams_path, params: { team: }
+    post teams_path,
+         params: { team: { team_name: 'My Beloved Team', creator_id: @user.id, description: 'My lovely team',
+                           policy: :public } }
 
     assert_response :success
     assert_match "Created 'My Beloved Team' successfully", flash[:notice]
@@ -47,7 +48,7 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
     team = teams(:sept)
     team.save # gotta check if I need to do this
 
-    get edit_team_path, params: { id: team.id }
+    get edit_team_path, params: { team: { id: team.id } }
 
     assert_response :success
     assert_match team.team_name, response.body

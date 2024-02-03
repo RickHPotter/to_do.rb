@@ -1,7 +1,7 @@
 <div class='w-full'>
   <div class='flex justify-between'>
     <%= link_to action_model(:new, @projects), new_project_path, class: 'rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium' %>
-    <%= link_to action_model(:search, @projects), new_project_path, class: 'rounded-lg py-3 px-5 bg-gray-700 text-white block font-medium' %>
+    <%= render 'search' %>
   </div>
 
   <div id='projects' class='min-w-full py-4'>

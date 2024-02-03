@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   devise_for :users
-  root to: 'projects#new'
+  root to: 'projects#index'
 
   get 'up' => 'rails/health#show', as: :rails_health_check
   get 'dashboard' => 'dashboards#index', as: :dashboard

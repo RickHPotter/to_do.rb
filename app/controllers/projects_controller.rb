@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
   before_action :set_helpers
 
   def index
-    @projects = Project.all.includes(%i[tasks users]).order(:created_at)
+    @projects = Project.like(params[:search]).includes(%i[tasks users]).order(:created_at)
   end
 
   def show; end
