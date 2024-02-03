@@ -11,12 +11,12 @@ class CreateTasks < ActiveRecord::Migration[7.1]
       t.integer :priority, null: false, default: 0
       t.date :due_date, null: false
 
-      t.references :task_list, null: false, foreign_key: true
+      t.references :project, null: false, foreign_key: true
       t.references :assignee, foreign_key: { to_table: :users }
 
       t.timestamps
     end
 
-    add_index :tasks, %i[task_name task_list_id assignee_id], unique: true
+    add_index :tasks, %i[task_name project_id assignee_id], unique: true
   end
 end

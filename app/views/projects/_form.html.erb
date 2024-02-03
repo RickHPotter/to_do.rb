@@ -1,0 +1,73 @@
+<% data = { controller: 'multi-step-form nested-form form-validate', nested_form_wrapper_selector_value: '.nested-form-wrapper' } %>
+<%= form_with(model: @project, class: 'contents', data:) do |form| %>
+
+  <div class='mt-5 mb-9'>
+    <div class="flex-start flex h-3.5 w-full overflow-hidden rounded-full border border-gray-900/10 bg-gray-900/5 p-1 font-sans text-xs font-medium">
+      <div class="flex items-center justify-center w-1/2 h-full overflow-hidden text-white break-all bg-orange-360 rounded-full"
+           data-multi-step-form-target='progress'>
+      </div>
+    </div>
+  </div>
+
+  <%= render 'shared/errors', object: @project %>
+
+  <div data-multi-step-form-target='step' data-step='0'>
+    <div class="flex flex-col my-6">
+      <%= render TextFieldComponent.new(form:, field: :project_name, options: { autofocus: true }) %>
+    </div>
+
+    <div class="flex flex-col my-6">
+      <%= render TextFieldComponent.new(form:, field: :description, options: { type: :textarea, data: { controller: 'textarea-autogrow' } }) %>
+    </div>
+
+    <%= form.hidden_field :creator_id, value: current_user.id %>
+
+    <div class="flex flex-col my-6">
+      <%= render TextFieldComponent.new(form:, field: :team_id, items: @teams, options: { type: :select }) %>
+    </div>
+
+    <div class="flex space-x-12">
+      <%= render RadioButtonComponent.new(form:, field: :priority, items: @priorities) %>
+    </div>
+
+    <div class="py-6">
+      <%= render TextFieldComponent.new(form:, field: :due_date, options: { type: :date }) %>
+    </div>
+
+    <div class="flex space-x-12 justify-between">
+      <div class="flex w-[200px] flex-col my-6">
+        <%= render ButtonComponent.new(link: projects_path, options: { label: I18n.t('navigation.back'), colour: :light }) %>
+      </div>
+      <div class="flex w-[200px] flex-col my-6">
+        <%= render ButtonComponent.new(options: { label: I18n.t('navigation.next'), colour: :orange, data: { action: 'multi-step-form#next', to: '1' } }) %>
+      </div>
+    </div>
+  </div>
+
+  <div data-multi-step-form-target='step' data-step='1'>
+    <template data-nested-form-target="template">
+      <%= form.fields_for :tasks, Task.new, child_index: 'NEW_RECORD' do |task_fields| %>
+        <%= render 'task_fields', form: task_fields %>
+      <% end %>
+    </template>
+
+    <%= form.fields_for :tasks do |task_fields| %>
+      <%= render 'task_fields', form: task_fields %>
+    <% end %>
+
+    <!-- inserted elements -->
+    <div data-nested-form-target='target'></div>
+
+    <%= render ButtonComponent.new(options: { label: action_model(:newa, Task), colour: :orange, data: { action: 'nested-form#add' } }) %>
+
+    <div class="flex space-x-12 justify-between">
+      <div class="flex w-[200px] flex-col my-6">
+        <%= render ButtonComponent.new(options: { label: I18n.t('navigation.previous'), colour: :light, data: { action: 'multi-step-form#previous', to: '0' } }) %>
+      </div>
+      <div class="flex w-[200px] flex-col my-6">
+        <%= render ButtonComponent.new(form:, options: { label: action_model(:create, Project), colour: :indigo }) %>
+      </div>
+    </div>
+  </div>
+
+<% end %>

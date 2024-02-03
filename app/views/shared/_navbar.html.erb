@@ -1,0 +1,51 @@
+<nav class="pt-2">
+  <div class="rounded-t-lg bg-purple-360 px-2 sm:px-6 lg:px-8">
+    <div class="relative flex h-16 items-center justify-between">
+      <%= link_to root_path, class: 'flex flex-shrink-0' do %>
+        <%= render 'shared/logo' %>
+      <% end %>
+      <div class="flex flex-1 items-start sm:items-stretch sm:justify-start">
+        <div class="hidden sm:ml-6 sm:block">
+          <div class="flex space-x-4">
+            <% { pluralise_model(Team, 2) => teams_path, pluralise_model(Project, 2) => projects_path }.each_pair do |name, link| %>
+              <%= link_to name, link, class: "#{request.path == link ? 'text-orange-360' : 'text-white hover:text-orange-360'} rounded-md px-3 py-2 text-sm font-medium" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+        <button id="dropdownUserAvatarButton" data-dropdown-toggle="dropdownAvatar" class="flex text-sm bg-gray-100 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300" type="button">
+          <span class="sr-only">Open user menu</span>
+          <img class="w-8 h-8 rounded-full" src=<%= current_user&.image_url %> alt="user photo">
+        </button>
+        <!-- Dropdown menu -->
+        <div id="dropdownAvatar" class="z-10 hidden bg-gray-600 divide-y divide-gray-800 rounded-lg shadow w-48">
+          <div class="px-4 mr-2 py-3 text-sm text-gray-400 dark:text-white">
+            <div><%= current_user&.full_name %></div>
+            <div class="font-medium truncate"><%= current_user&.email %></div>
+          </div>
+          <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownUserAvatarButton">
+            <li>
+              <%= locale_link('pt-BR', class: 'flex items-center justify-between px-4 py-2 text-sm text-white hover:bg-gray-600') do %>
+                <span>Português</span>
+                <%= image_tag 'https://cdn.icon-icons.com/icons2/1694/PNG/512/brbrazilflag_111698.png', size: '25x15'  %>
+              <% end %>
+            </li>
+            <li>
+              <%= locale_link('en', class: 'flex items-center justify-between px-4 py-2 text-sm text-white hover:bg-gray-600') do %>
+                <span>English</span>
+                <%= image_tag 'https://static.vecteezy.com/system/resources/previews/005/416/914/original/flag-of-united-kingdom-illustration-free-vector.jpg', size: '25x15'  %>
+              <% end %>
+            </li>
+          </ul>
+          <div class="py-2">
+            <%= link_to I18n.t('edit_profile'), edit_user_registration_path, class: 'block px-4 py-2 text-sm text-white hover:bg-gray-600' %>
+            <%= link_to I18n.t('sign_out'), destroy_user_session_path, data: { turbo_method: :delete }, class: 'block px-4 py-2 text-sm text-white hover:bg-gray-600' %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</nav>

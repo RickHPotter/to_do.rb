@@ -1,0 +1,40 @@
+<div class="nested-form-wrapper" data-new-record="<%= form.object.new_record? %>">
+  <div class="flex space-x-12">
+    <div class="flex w-[200px] flex-col my-5">
+      <%= render TextFieldComponent.new(form:, field: :assignee_id, items: @users, options: { type: :select }) %>
+    </div>
+
+      <div class="flex w-full flex-col my-5">
+      <%= render TextFieldComponent.new(form:, field: :task_name, options: { autofocus: true }) %>
+    </div>
+  </div>
+
+  <div class="flex flex-col py-5">
+    <%= render TextFieldComponent.new(form:, field: :description, options: { type: :textarea, data: { controller: 'textarea-autogrow' } }) %>
+  </div>
+
+  <!-- TODO: DRY and move to ViewComponent -->
+  <div class="flex flex-col py-5" data-controller='range'>
+    <%= form.text_field :progress,
+                        type: :range,
+                        class: 'w-full h-2 rounded-lg appearance-none cursor-pointer',
+                        min: 0, max: 100, step: 25, value: 25,
+                        data: { action: 'range#update', range_target: 'input' } %>
+
+    <div class="w-full flex justify-between text-xs p-2">
+      <span class='text-gray-500 dark:text-gray-400'>Didn't start</span>
+      <span class='text-gray-500 dark:text-gray-400'>Just started</span>
+      <span class='text-gray-500 dark:text-gray-400'>Halfway there</span>
+      <span class='text-gray-500 dark:text-gray-400'>Almost finished</span>
+      <span class='text-gray-500 dark:text-gray-400'>Done!</span>
+    </div>
+  </div>
+
+  <div class="flex space-x-12">
+    <%= render RadioButtonComponent.new(form:, field: :priority, items: @priorities) %>
+  </div>
+
+  <%= render TextFieldComponent.new(form:, field: :due_date, options: { type: :date }) %>
+
+  <%= render ButtonComponent.new(options: { label: action_model(:destroy, Task), colour: :red, data: { action: 'nested-form#remove' } }) %>
+</div>

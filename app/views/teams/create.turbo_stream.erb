@@ -1,0 +1,8 @@
+<% if @team.errors.present? %>
+  <%= turbo_stream.update :container, partial: 'form', locals: { team: @team } %>
+<% else %>
+  <%= turbo_stream.append :notification, partial: 'shared/flash' %>
+
+  <%= turbo_stream.update :container, partial: 'form', locals: { team: Team.new } %>
+  <%= turbo_stream.update :tab, partial: 'teams_tab', locals: { teams: @teams } %>
+<% end %>

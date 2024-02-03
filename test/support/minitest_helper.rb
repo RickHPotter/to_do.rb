@@ -39,6 +39,6 @@ module MinitestHelper
     assert_response :redirect
     assert_redirected_to new_user_session_path
     follow_redirect!
-    assert_match(/sign in/i, response.body)
+    assert_match(I18n.t('devise.failure.unauthenticated'), response.body)
   end
 end

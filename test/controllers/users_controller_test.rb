@@ -32,7 +32,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     post user_registration_path, params: { user: }
 
     assert_response :redirect
-    assert_match 'You have signed up successfully', flash[:notice]
+    assert_match I18n.t('devise.registrations.signed_up'), flash[:notice]
     assert_redirected_to root_path
   end
 end

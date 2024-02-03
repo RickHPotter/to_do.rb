@@ -29,6 +29,8 @@ jobs:
 
       - name: Set up database schema
         run: bin/rails db:schema:load
+      - name: Set up npm
+        run: npm install
       - name: Run tests
         run: bin/rails test
       - name: Create Coverage Artifact

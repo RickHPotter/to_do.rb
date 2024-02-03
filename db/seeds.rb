@@ -7,12 +7,12 @@
 # └── Team/
 #     ├── Users (has_many through TeamUser)
 #     ├── Categories
-#     └── TaskLists/
-#         ├── Categories (has_many through CategoryTaskList)
-#         ├── Users (has_many through TaskListUser)
+#     └── Projects/
+#         ├── Categories (has_many through CategoryProject)
+#         ├── Users (has_many through ProjectUser)
 #         ├── Creator (as User; must belong to Team)
 #         └── Tasks/
-#             └── Assignee (as User; must belong to TaskList)
+#             └── Assignee (as User; must belong to Project)
 
 team_names = %w[Konohagakure Sunagakure Amegakure Kumogakure Iwagakure]
 
@@ -49,9 +49,9 @@ Team.where.not(team_name: 'Default').each do |team|
     )
   end
 
-  3.times.each do |i|
-    TaskList.create(
-      task_list_name: "Task List #{i}",
+  5.times.each do |i|
+    project = Project.create(
+      project_name: "Project #{i}",
       policy: :public,
       progress: 0,
       priority: :low,
@@ -59,5 +59,16 @@ Team.where.not(team_name: 'Default').each do |team|
       creator_id: team.members.sample.id,
       due_date: Date.today
     )
+
+    %w[Home Work Miscelaneous].each do |category|
+      project.tasks << Task.create(
+        task_name: "Task #{category}",
+        description: 'A realy good description.',
+        order: 0,
+        progress: 0,
+        priority: :low,
+        due_date: Date.tomorrow
+      )
+    end
   end
 end

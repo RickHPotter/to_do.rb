@@ -55,6 +55,9 @@ gem 'view_component'
 # Authentication
 gem 'devise'
 
+# Nested Forms
+gem 'cocoon', '~> 1.2.15'
+
 gem 'dotenv-rails'
 
 group :development, :test do

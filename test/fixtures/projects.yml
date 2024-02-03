@@ -1,0 +1,36 @@
+# == Schema Information
+#
+# Table name: projects
+#
+#  id           :bigint           not null, primary key
+#  project_name :string           not null
+#  description  :text
+#  policy       :integer          default("public"), not null
+#  progress     :integer          default(0), not null
+#  priority     :integer          default("low"), not null
+#  due_date     :date             not null
+#  team_id      :bigint           not null
+#  creator_id   :bigint           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
+today:
+  creator: lovelace
+  project_name: Today
+  description: We need to get these things done ASAP before I yet again create a new amazing masterpiece that is another project
+  team: sept
+  policy: 1
+  progress: 1
+  priority: 1
+  due_date: <%= Date.current %>
+
+never:
+  creator: a
+  project_name: Never
+  description: Everything that never should happen
+  team: mizu
+  policy: 0
+  progress: 1
+  priority: 1
+  due_date: <%= Date.tomorrow %>

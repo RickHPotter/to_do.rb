@@ -4,4 +4,7 @@
                                     creator: { name: @team.creator.full_name, image_url: @team.creator.image_url },
                                     members: @team.members
   %>
+
+  <%= link_to t('actions.edit'), edit_team_path(@team), class: 'ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium' %>
 <% end %>
+

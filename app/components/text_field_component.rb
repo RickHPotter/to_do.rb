@@ -13,8 +13,8 @@ class TextFieldComponent < ViewComponent::Base
   # Initialises a Component of Type TextField
   #
   # @param form [ActionView::Helpers::FormBuilder] The form builder object.
-  # @param object [Object] The model object associated with the form.
   # @param field [Symbol] The attribute name for the text field.
+  # @param items [Array] The list of items for the select field.
   # @param options [Hash] Additional options for customizing the text field.
   #
   # @option options [String] :id The HTML ID attribute for the text field.
@@ -27,10 +27,10 @@ class TextFieldComponent < ViewComponent::Base
   #
   # @return [TextFieldComponent] A new instance of TextFieldComponent.
   #
-  def initialize(form:, object:, field:, items: nil, options: {})
+  def initialize(form:, field:, items: nil, options: {})
     @form = form
-    @object = object
     @field = field
+    @object = form.object || form.options[:parent_builder].object
     @items = items
     @options = default_options(options)
     super
@@ -44,8 +44,8 @@ class TextFieldComponent < ViewComponent::Base
   #
   def default_options(options)
     {
-      id: options[:id] || "#{@object.model_name.singular}_#{@field}",
-      label: options[:label] || attribute_model(@object, @field),
+      id: options[:id] || "#{@object.model_name.singular}_#{field}",
+      label: options[:label] || attribute_model(object, @field),
       type: options[:type] || 'text',
       step: options[:step] || '',
       autofocus: options[:autofocus] || false,

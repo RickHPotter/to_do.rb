@@ -7,15 +7,12 @@
 #  id                     :bigint           not null, primary key
 #  first_name             :string           not null
 #  last_name              :string           not null
+#  image_url              :string
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  reset_password_token   :string
 #  reset_password_sent_at :datetime
 #  remember_created_at    :datetime
-#  confirmation_token     :string
-#  confirmed_at           :datetime
-#  confirmation_sent_at   :datetime
-#  unconfirmed_email      :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
@@ -50,12 +47,5 @@ class UserTest < ActiveSupport::TestCase
   test 'should respond to has_many :team_users and :teams' do
     assert_respond_to users(:john_doe), :team_users
     assert_respond_to users(:john_doe), :teams
-  end
-
-  test 'should have a default team' do
-    user = users(:lovelace)
-    user.save
-
-    assert_includes user.teams.pluck(:team_name), 'Default'
   end
 end

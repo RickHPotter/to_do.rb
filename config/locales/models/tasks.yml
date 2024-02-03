@@ -1,0 +1,45 @@
+en:
+  activerecord:
+    models:
+      task:
+        one: Task
+        other: Task
+    attributes:
+      task:
+        id: ID
+        task_name: Task Name
+        description: Description
+        assignee: Assignee
+        assignee_id: Assignee
+        progress: Progress
+        priority: Priority
+        priority-low: Low Priority
+        priority-medium: Medium Priority
+        priority-high: High Priority
+        order: Order
+        due_date: Deadline
+        created_at: Created at
+        updated_at: Updated at
+
+pt-BR:
+  activerecord:
+    models:
+      task:
+        one: Tarefa
+        other: Tarefas
+    attributes:
+      task:
+        id: ID
+        task_name: Nome da Tarefa
+        description: Descricão
+        assignee: Atribuído à
+        assignee_id: Atribuído à
+        progress: Progresso
+        priority: Prioridade
+        priority-low: Prioridade Baixa
+        priority-medium: Prioridade Média
+        priority-high: Prioridade Alta
+        order: Ordem
+        due_date: Prazo
+        created_at: Criado em
+        updated_at: Atualizado em
