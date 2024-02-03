@@ -49,7 +49,7 @@ Team.where.not(team_name: 'Default').each do |team|
     )
   end
 
-  3.times.each do |i|
+  5.times.each do |i|
     project = Project.create(
       project_name: "Project #{i}",
       policy: :public,
@@ -60,13 +60,15 @@ Team.where.not(team_name: 'Default').each do |team|
       due_date: Date.today
     )
 
-    project.tasks << Task.create(
-      task_name: "Task #{i}",
-      description: 'A realy good description.',
-      order: 0,
-      progress: 0,
-      priority: :low,
-      due_date: Date.tomorrow
-    )
+    %w[Home Work Miscelaneous].each do |category|
+      project.tasks << Task.create(
+        task_name: "Task #{category}",
+        description: 'A realy good description.',
+        order: 0,
+        progress: 0,
+        priority: :low,
+        due_date: Date.tomorrow
+      )
+    end
   end
 end

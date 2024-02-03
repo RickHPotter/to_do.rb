@@ -6,6 +6,10 @@ en:
     not_updated: "%{model} was not updated."
     destroyed: "%{model} was successfully destroyed."
     not_destroyed: "%{model} was not destroyed."
+  confirmation:
+    sure: "Are you sure?"
+    yes: "Yes"
+    no: "No"
   gerund:
     index: "Listing"
     show: "Details of"
@@ -36,6 +40,10 @@ en:
   or: "Or"
 
 pt-BR:
+  confirmation:
+    sure: "Tem certeza?"
+    yes: "Sim"
+    no: "Não"
   notification:
     created: "%{model} foi criado com sucesso."
     not_created: "%{model} não foi criado."

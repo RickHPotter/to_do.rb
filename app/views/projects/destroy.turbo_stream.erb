@@ -1,0 +1,5 @@
+ <%= turbo_stream.append :notification, partial: 'shared/flash' %>
+
+ <% if @project.destroyed? %>
+  <%= turbo_stream.remove @project %>
+ <% end %>

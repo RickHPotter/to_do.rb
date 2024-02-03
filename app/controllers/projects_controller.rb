@@ -3,10 +3,10 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
   before_action :set_teams, only: %i[new create edit update]
-  before_action :set_helpers, except: %i[show destroy]
+  before_action :set_helpers
 
   def index
-    @projects = Project.all.includes([:tasks]).order(:created_at)
+    @projects = Project.all.includes(%i[tasks users]).order(:created_at)
   end
 
   def show; end
@@ -52,9 +52,7 @@ class ProjectsController < ApplicationController
       flash[:alert] = t('notification.not_destroyed', model: t('activerecord.models.project.one'))
     end
 
-    respond_to do |format|
-      format.html { redirect_to projects_url }
-    end
+    respond_to(&:turbo_stream)
   end
 
   private

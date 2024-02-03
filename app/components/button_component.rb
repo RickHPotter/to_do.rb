@@ -24,7 +24,7 @@ class ButtonComponent < ViewComponent::Base
   #
   def initialize(form: nil, link: nil, options: {})
     @form = form
-    @link = link
+    @link = link || '#'
     @options = default_options(options)
     super
   end

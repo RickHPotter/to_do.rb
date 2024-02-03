@@ -5,4 +5,11 @@ export default class extends NestedForm {
   connect() {
     super.connect()
   }
+
+  submit_auto_save(event) {
+    event.preventDefault()
+    const form = event.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement
+    this.remove(event)
+    form.requestSubmit()
+  }
 }

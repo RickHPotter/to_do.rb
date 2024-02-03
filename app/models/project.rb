@@ -26,7 +26,7 @@ class Project < ApplicationRecord
   # @relationships ............................................................
   belongs_to :team
   belongs_to :creator, class_name: :User, foreign_key: :creator_id
-  has_many :project_users
+  has_many :project_users, inverse_of: :project, dependent: :destroy
   has_many :users, through: :project_users
 
   has_many :tasks, inverse_of: :project, dependent: :destroy
